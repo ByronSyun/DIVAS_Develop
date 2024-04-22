@@ -1,0 +1,6 @@
+image_name=2024s1a3
+image_tag=v0
+force_build=0
+container_name=test_env
+CPU_limit=1
+RAM_limit=9g
