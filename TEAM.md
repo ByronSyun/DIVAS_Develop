@@ -1,18 +1,18 @@
 # Team Information
 
-**Course:** _[fill your course code and name]_
+**Course:** COMP90054 AI Planning for Autonomy
 
-**Semester:** Semester 2, 2020
+**Semester:** Semester 1, 2024
 
-**Instructor:** _[name of your instructor]_
+**Instructor:** Nir & Joseph & Sarita
 
-**Team name:** _[replace this with team name in plan text]_
+**Team name:** Merlin
 
 **Team members:**
+* 1045919 - Yinuo Sun - yinuos2@student.unimelb.edu.au - ByronSyun
+* 1166106 - Yufeng Xie - yufengx1@student.unimelb.edu.au - yufengx1
+* 1135290 - Xueke Zheng- xuekez@student.unimelb.edu.au - xuekez
 
-* Student 1's Student number - Full Name - Student email - Student Github id
-* Student 2's Student number - Full Name - Student email - Student Github id
-* Student 3's Student number - Full Name - Student email - Student Github id
 
 Replace the lines above with the correct details of members. Delete or add lines as needed.
 
