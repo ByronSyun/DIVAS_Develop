@@ -7,7 +7,7 @@ from Splendor.splendor_utils import *
 
 THINKTIME = 0.9
 AGENT_NUM = 2
-GAMMA = 0.3
+GAMMA = 0.1
 
 class myAgent(Agent):
     def __init__(self, _id):
@@ -29,14 +29,14 @@ class myAgent(Agent):
         start_time = time.time()  # Record the start time
         q_sa = {}  # State-action values
         n_sa = {}  # State-action visit counts
-        expanded_action_s = {}  # Expanded actions set
+        expanded_action= {}  # Expanded actions set
         t_root_state = self.TransformState(game_state, self.id)  # Root state string representation
         count = 0  # Counter
 
         # Check if all actions are expanded for the given state
         def IsExpanded(t_state, actions):
-            if t_state in expanded_action_s:
-                return [action for action in actions if not self.IsAction(action, expanded_action_s[t_state])]
+            if t_state in expanded_action:
+                return [action for action in actions if not self.IsAction(action, expanded_action[t_state])]
             return actions
 
         # Get the best action for the given state
@@ -79,10 +79,10 @@ class myAgent(Agent):
             available_actions = IsExpanded(t_cur_state, new_actions)
             if available_actions:
                 action = random.choice(available_actions)
-                if t_cur_state in expanded_action_s:
-                    expanded_action_s[t_cur_state].append(ActionToString(self.id, action))
+                if t_cur_state in expanded_action:
+                    expanded_action[t_cur_state].append(ActionToString(self.id, action))
                 else:
-                    expanded_action_s[t_cur_state] = [ActionToString(self.id, action)]
+                    expanded_action[t_cur_state] = [ActionToString(self.id, action)]
                 queue.append((t_cur_state, action))
                 state = self.game_rule.generateSuccessor(state, action, self.id)
                 new_actions = self.game_rule.getLegalActions(state, self.id)
