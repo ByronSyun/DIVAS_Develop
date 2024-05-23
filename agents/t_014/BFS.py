@@ -32,12 +32,12 @@ class myAgent(Agent):
         return [random.choice(actions)], 'random'
 
     def evaluate_card_value(self, card, game_state):
-        game_phase = len([c for p in game_state.agents for c in p.cards]) / 90  # 假设总卡片数为90
-        if game_phase < 0.3:  # 游戏早期
+        game_phase = len([c for p in game_state.agents for c in p.cards]) / 90 
+        if game_phase < 0.3:  
             phase_weight = {1: 1.5, 2: 1, 3: 0.8}
-        elif game_phase < 0.6:  # 游戏中期
+        elif game_phase < 0.6:  
             phase_weight = {1: 1.2, 2: 1.5, 3: 1}
-        else:  # 游戏后期
+        else: 
             phase_weight = {1: 1, 2: 1.3, 3: 1.2}
         layer_bonus = phase_weight.get(card.deck_id, 1)
         # layer_bonus = 1.5 if card.deck_id == 1 else 1
