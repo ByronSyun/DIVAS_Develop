@@ -1,0 +1,81 @@
+#' Title
+#'
+#' @param singVals
+#' @param betaShrinkage
+#'
+#' @return
+#' @export
+#'
+#' @examples
+ksOpt <- function(singVals, betaShrinkage) {
+  sigmaMin <- median(singVals) / (1 + sqrt(betaShrinkage))
+  sigmaMax <- 2 * max(singVals) / (1 + sqrt(betaShrinkage))
+  numGrid <- 200
+
+  cands <- seq(sigmaMin, sigmaMax, length.out = numGrid)
+  objVals <- numeric(numGrid)
+
+  for (ii in 1:numGrid) {
+    sigmaCand <- cands[ii]
+    noiseSingVals <- singVals[singVals < sigmaCand * (1 + betaShrinkage)]
+    card <- length(noiseSingVals)
+
+    absVals <- numeric(card)
+
+    for (jj in 1:card) {
+      absVals[jj] <- abs(incMarPas((noiseSingVals[jj] / sigmaCand)^2, betaShrinkage, 0) - (jj - 0.5) / card)
+    }
+
+    objVals[ii] <- max(absVals) + 1 / (2 * card)
+    cat(sprintf("Finished noise estimation candidate %d\n", ii))
+  }
+
+  minInd <- which.min(objVals)
+  sigma <- cands[minInd]
+  return(sigma)
+}
+
+incMarPas <- function(x0, beta, gamma) {
+  topSpec <- (1 + sqrt(beta))^2
+  botSpec <- (1 - sqrt(beta))^2
+
+  MarPas <- function(x) {
+    ifelse((topSpec - x) * (x - botSpec) > 0,
+           sqrt(pmax((topSpec - x) * (x - botSpec), 0)) / (beta * x) / (2 * pi),
+           0)
+  }
+
+
+  if (gamma != 0) {
+    fun <- function(x) x^gamma * MarPas(x)
+  } else {
+    fun <- MarPas
+  }
+
+  I <- integrate(fun, x0, topSpec)$value
+  return(I)
+}
+
+
+
+
+# # Test script for ksOpt.R
+#
+# # from Matlab rng42
+# library(R.matlab)
+# data <- readMat('ksOpt_random_matrix.mat')
+# singVals <- data$singVals
+#
+# # Define betaShrinkage parameter
+# betaShrinkage <- 0.5  # Example
+#
+# # Run the ksOpt function
+# sigma <- ksOpt(singVals, betaShrinkage)
+#
+# # Display the result
+# cat("Test (sigma):\n")
+# print(singVals)
+#
+# cat("Estimated noise level (sigma):\n")
+# print(sigma)
+

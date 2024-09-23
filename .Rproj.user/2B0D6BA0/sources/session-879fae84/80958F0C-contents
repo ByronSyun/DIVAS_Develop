@@ -1,0 +1,10 @@
+exportPattern("^[[:alpha:]]+")
+import(RSpectra)
+import(R.matlab)
+export(DJIVESignalExtractJP)
+export(MatSignalExtractJP)
+export(PercentileMarcenkoPastur)
+export(ksOpt)
+export(randDirAngleMJ)
+export(optimal_shrinkage)
+
