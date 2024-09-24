@@ -1,8 +1,0 @@
-library(devtools)
-
-
-load_all()
-document()
-DJIVESignalExtractJP()
-
-# check() = load_all() + document() + other checking

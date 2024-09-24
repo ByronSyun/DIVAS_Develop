@@ -3,7 +3,7 @@
     "path": "~/Projects/DIVASpackage/DESCRIPTION",
     "project_path": "DESCRIPTION",
     "type": "dcf",
-    "hash": "0",
+    "hash": "3324702581",
     "contents": "",
     "dirty": false,
     "created": 1727068557971.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "16,12",
-        "scrollLine": "1"
+        "cursorPosition": "15,12",
+        "scrollLine": "9"
     },
     "folds": "",
-    "lastKnownWriteTime": 1727068679,
+    "lastKnownWriteTime": 1727152065,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1727068679258,
+    "last_content_update": 1727152065455,
     "read_only": false,
     "read_only_alternatives": []
 }

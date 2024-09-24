@@ -47,36 +47,26 @@ PercentileMarcenkoPastur <- function(beta, perc) {
 }
 
 
-#' Incremental Marcenko-Pastur Function
-#'
-#' This function computes the integral of the Marcenko-Pastur density function from `x0` to the upper bound of the spectrum, which is used to find the cumulative probability up to `x0`.
-#'
-#' @param x0 The lower limit of the integration, representing the value up to which the cumulative probability is calculated.
-#' @param beta The shape parameter of the Marcenko-Pastur distribution.
-#' @param gamma The exponent applied to the Marcenko-Pastur density function during integration.
-#'
-#' @return The value of the integral, representing the cumulative probability up to `x0`.
-#'
-#' @export
-incMarPas <- function(x0, beta, gamma) {
-  topSpec <- (1 + sqrt(beta))^2
-  botSpec <- (1 - sqrt(beta))^2
 
-  MarPas <- function(x) {
-    ifelse((topSpec - x) * (x - botSpec) > 0,
-           sqrt(pmax((topSpec - x) * (x - botSpec), 0)) / (beta * x) / (2 * pi),
-           0)
-  }
-
-  if (gamma != 0) {
-    fun <- function(x) x^gamma * MarPas(x)
-  } else {
-    fun <- MarPas
-  }
-
-  I <- integrate(fun, x0, topSpec)$value
-  return(I)
-}
+# incMarPas <- function(x0, beta, gamma) {
+#   topSpec <- (1 + sqrt(beta))^2
+#   botSpec <- (1 - sqrt(beta))^2
+#
+#   MarPas <- function(x) {
+#     ifelse((topSpec - x) * (x - botSpec) > 0,
+#            sqrt(pmax((topSpec - x) * (x - botSpec), 0)) / (beta * x) / (2 * pi),
+#            0)
+#   }
+#
+#   if (gamma != 0) {
+#     fun <- function(x) x^gamma * MarPas(x)
+#   } else {
+#     fun <- MarPas
+#   }
+#
+#   I <- integrate(fun, x0, topSpec)$value
+#   return(I)
+# }
 
 
 # # Test script for PercentileMarcenkoPastur.R
