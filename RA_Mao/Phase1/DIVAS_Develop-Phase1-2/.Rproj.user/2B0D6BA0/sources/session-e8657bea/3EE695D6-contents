@@ -1,0 +1,77 @@
+suppressWarnings(library(CVXR, warn.conflicts=FALSE))
+
+ccpSubOptJPEarlyStop <- function(v0, Qo1, Qo2, Qc1, Qc2, Vo, tau) {
+  # Inputs:
+  #   v0 - Initial direction
+  #   Qo1 - a matrix of the 1st quadratic form in the objective function
+  #   Qo2 - a matrix of the 2nd quadratic form in the objective function
+  #   Qc1 - a list of matrices of the 1st quadratic form in the constraints
+  #   Qc2 - a list of matrices of the 2nd quadratic form in the constraints
+  #   Vo  - a matrix of orthogonal constraints
+  #   tau - multiplier of slack variables
+  #
+  # Outputs:
+  #   result - list containing optimized direction, slack variable values, and objective value
+  
+  nc <- length(Qc1)
+  n <- length(v0)
+  ro <- ncol(Vo)
+  
+  # cvx_begin quiet;
+  v <- Variable(n)
+  slack <- Variable(nc + 2)
+  
+  objective <- quad_form(v, Qo1) - 2 * t(v0) %*% Qo2 %*% v + quad_form(v0, Qo2) + tau * sum(slack)
+  constraints <- list()
+  
+  # constraints for each Qc1 and Qc2
+  for (ic in 1:nc) {
+    constraints <- c(constraints, 
+                     quad_form(v, Qc1[[ic]]) - 2 * t(v0) %*% Qc2[[ic]] %*% v + quad_form(v0, Qc2[[ic]]) <= slack[ic])
+  }
+  # Addition
+  constraints <- c(constraints,
+                   sum_squares(v) - 1 <= slack[nc + 1],
+                   1 - 2 * t(v0) %*% v + sum_squares(v) <= slack[nc + 2],
+                   slack >= 0,
+                   t(Vo) %*% v == matrix(0, nrow = ro, ncol = 1))
+  # cvx_end
+  
+  problem <- Problem(Minimize(objective), constraints)
+  result <- solve(problem)
+  #result <- solve(problem, solver = "ECOS")
+  v_opt <- result$getValue(v)
+  slack_opt <- result$getValue(slack)
+  cvx_objval <- t(v_opt) %*% Qo1 %*% v_opt - 2 * t(v0) %*% Qo2 %*% v_opt + t(v0) %*% Qo2 %*% v0
+  
+  # print("Slack variables before returning:")
+  # print(slack)
+  
+  # slack <- rep(0.5, length(Qc1) + 2)
+  # print("Temporary hardcoded slack values:")
+  # print(slack)
+  
+  return(list(v = v_opt, slack = slack_opt, objval = cvx_objval))
+}
+
+
+
+v0 <- matrix(c(1, 2, 3), nrow = 3, ncol = 1)
+Qo1 <- diag(3)
+Qo2 <- 0.5 * diag(3)
+Qc1 <- list(diag(3), 2 * diag(3))
+Qc2 <- list(diag(3), 0.5 * diag(3))
+Vo <- matrix(c(1, 0, 0, 0, 1, 0), nrow = 3, byrow = F)
+tau <- 1
+result <- ccpSubOptJPEarlyStop(v0, Qo1, Qo2, Qc1, Qc2, Vo, tau)
+
+v_opt <- result$v
+slack_opt <- result$slack
+objval <- result$objval
+cat('R Output:\n')
+cat('Optimized v:\n')
+print(v_opt)
+cat('Slack variables:\n')
+print(slack_opt)
+cat('Objective value:\n')
+print(objval)

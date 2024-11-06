@@ -1,0 +1,26 @@
+{
+    "id": "008C7C3C",
+    "path": "~/Desktop/RA_Mao/Phase1/DIVAS_Develop-Phase1/R/ccpSubOptJPEarlyStop.R",
+    "project_path": "R/ccpSubOptJPEarlyStop.R",
+    "type": "r_source",
+    "hash": "1423002576",
+    "contents": "",
+    "dirty": false,
+    "created": 1730868976452.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "42,21",
+        "scrollLine": "39"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1730869045,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1730869045390,
+    "read_only": false,
+    "read_only_alternatives": []
+}

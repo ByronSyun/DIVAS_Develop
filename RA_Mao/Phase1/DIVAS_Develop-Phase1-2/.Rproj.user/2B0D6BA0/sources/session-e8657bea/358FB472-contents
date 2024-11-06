@@ -1,0 +1,46 @@
+#' Calculate the Projection Angle between a Vector and a Basis Matrix
+#'
+#' The function `projAngleMJ` calculates the angle between a given vector and its projection
+#' onto the subspace spanned by a basis matrix. The resulting angle provides a measure of
+#' how closely the vector aligns with the subspace.
+#'
+#' @param x A numeric vector of length \code{n}, representing an \eqn{n \times 1} vector.
+#' @param V A numeric matrix of dimension \eqn{n \times r}, representing a basis matrix of the subspace.
+#'
+#' @return A numeric value representing the projected angle of \code{x} on \code{V}, in degrees.
+#' The value is in the range \eqn{[0, 180]}.
+#'
+#' @importFrom base acos
+#' @importFrom base sum
+#' @importFrom Matrix norm
+#' @export
+projAngleMJ <- function(x, V) {
+  # Ensure inputs are compatible
+  if (!is.numeric(x) || !is.matrix(V)) {
+    stop("Input x must be a numeric vector, and V must be a numeric matrix.")
+  }
+
+  if (length(x) != nrow(V)) {
+    stop("The length of vector x must match the number of rows in matrix V.")
+  }
+
+  # Project x onto the subspace spanned by V
+  px <- V %*% t(V) %*% x
+
+  # Calculate the angle between the vector x and its projection px
+  norm_px <- norm(px, type = "2")
+  norm_x <- norm(x, type = "2")
+
+  if (norm_px == 0 || norm_x == 0) {
+    warning("The norm of the projection or input vector is zero. Returning angle of 90 degrees.")
+    return(90)
+  }
+
+  cos_theta <- sum(px * x) / (norm_px * norm_x)
+  # Clip cos_theta to avoid numerical issues with acos
+  cos_theta <- max(min(cos_theta, 1), -1)
+
+  angle <- acos(cos_theta) * (180 / pi)
+
+  return(angle)
+}

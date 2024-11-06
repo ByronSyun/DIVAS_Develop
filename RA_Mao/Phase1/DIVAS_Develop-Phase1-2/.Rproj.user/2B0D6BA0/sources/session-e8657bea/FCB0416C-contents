@@ -1,0 +1,5 @@
+usethis::use_testthat()
+
+
+usethis::use_test("MatCenterJP")
+#usethis::use_test("ksOpt")

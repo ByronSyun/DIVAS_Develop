@@ -1,0 +1,3 @@
+acosd <- function(x) {
+  return(acos(x) * 180 / pi)
+}

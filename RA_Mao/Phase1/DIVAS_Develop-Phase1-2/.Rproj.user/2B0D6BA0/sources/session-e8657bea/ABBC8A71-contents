@@ -1,0 +1,35 @@
+library(testthat)
+#testthat::test_file("tests/testthat/test-MatCenterJP.R")
+
+
+X <- matrix(c(1, 2, 333, 4, 5, 6, 7, 8, 9), nrow = 3, ncol = 3, byrow = TRUE)
+
+# Begin the test block for MatCenterJP
+test_that("MatCenterJP works for column, row, and both centering", {
+
+  # Expected outputs based on your result
+  col_centered <- matrix(c(-111, -110, 221, -1, 0, 1, -1, 0, 1), nrow = 3, byrow = TRUE)
+  row_centered <- matrix(c(-3, -3, 217, 0, 0, -110, 3, 3, -107), nrow = 3, byrow = TRUE)
+  both_centered <- matrix(c(-73.33333, -73.33333, 146.66667,
+                            36.66667, 36.66667, -73.33333,
+                            36.66667, 36.66667, -73.33333), nrow = 3, byrow = TRUE)
+
+  # Test for column centering
+  result_col_center <- MatCenterJP(X, iColCent = TRUE, iRowCent = FALSE)
+  expect_equal(result_col_center, col_centered, tolerance = 1e-5)
+
+  # Test for row centering
+  result_row_center <- MatCenterJP(X, iColCent = FALSE, iRowCent = TRUE)
+  expect_equal(result_row_center, row_centered, tolerance = 1e-5)
+
+  # Test for both row and column centering
+  result_both_center <- MatCenterJP(X, iColCent = TRUE, iRowCent = TRUE)
+  expect_equal(result_both_center, both_centered, tolerance = 1e-5)  # Added tolerance to account for small precision differences
+
+ expect_equal(dim(result_col_center), c(3, 3))
+  expect_equal(dim(result_row_center), c(3, 3))
+  expect_equal(dim(result_both_center), c(3, 3))
+
+expect_equal(sum(result_both_center), 0, tolerance = 1e-5)
+})
+
