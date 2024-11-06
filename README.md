@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Splendor Project Template
 
 You must fully and carefully read the assignment specification and instructions detailed in this file. You are NOT to modify this file in any way.
@@ -274,3 +275,6 @@ If you still have doubts about the project and/or this specification do not hesi
 **GOOD LUCK and HAPPY SPLENDOR!**
 
 
+=======
+# DIVAS_Develop
+>>>>>>> origin/Phase1-2
