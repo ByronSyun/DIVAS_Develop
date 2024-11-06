@@ -55,7 +55,7 @@ MatSignalExtractJP <- function(X, matName, nsim, colCent, rowCent, cull, percent
   if (is.null(d) || is.null(n)) {
     stop("The input matrix X has invalid dimensions.")
   }
-
+  svds <- RSpectra::svds
   mindn <- min(d, n)
 
   #Perform SVD on the data matrix X
