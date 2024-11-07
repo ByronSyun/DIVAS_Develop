@@ -53,7 +53,12 @@ BlockJointStrucEstimateJP <- function(blockIn, dataname, VBars, phiBars, rBars, 
   Qo1 <- if (is.null(Mo1)) diag(n) * 1e-6 else Mo1 %*% t(Mo1)
   Qo2 <- if (is.null(Mo2)) diag(n) * 1e-6 else Mo2 %*% t(Mo2)
 
-  Vorth <- matrix(0, n, 1)
+  # Vorth <- matrix(0, n, 1)
+  Vorth <- NULL
+  Vnorth <- NULL
+  if (length(Vorth) == 0 || is.null(Vorth)) {
+    Vorth <- matrix(0, n, 1)
+  }
 
   for (len in nb:(blockLen + 1)) {
     if (len > length(allIdx)) next
