@@ -25,7 +25,7 @@
 #'   \item{VVHatCacheBar}{List of matrices from bootstrap validation steps.}
 #'   \item{UUHatCacheBar}{List of matrices from bootstrap validation steps.}
 #' }
-#'
+#' @importFrom RSpectra svds
 #' @export
 #'
 MatSignalExtractJP <- function(X, matName, nsim, colCent, rowCent, cull, percentile, noiselvl = NULL) {
