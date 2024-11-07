@@ -78,7 +78,7 @@ BlockJointStrucEstimateJP <- function(blockIn, dataname, VBars, phiBars, rBars, 
     Qc2[[length(Qc2) + 1]] <- diag(n)
   }
 
-  V0 <- svds(Qo2, k = max(rBars[blockIn]))$v
+  V0 <- RSpectra::svds(Qo2, k = max(rBars[blockIn]))$v
   Vi <- NULL
   angles <- matrix(0, nrow = nb, ncol = ncol(V0))
 
