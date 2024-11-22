@@ -1,0 +1,22 @@
+Package: DIVASpackage
+Type: Package
+Title: Data Integration via Analysis of Subspaces
+Version: 0.1.0
+Author: ##person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Maintainer: Yinuo Sun <yinuo.sun.1@unimelb.edu.au>
+Description: Based on 'Data integration via analysis of subspaces (DIVAS)',
+    this is a package that implements the DIVAS methodology for data integration using subspace analysis.
+    This package provides tools for signal extraction, noise estimation, and joint structure identification
+    from high-dimensional datasets, useful in multi-omics and other complex data scenarios. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    RSpectra,
+    Matrix,
+    CVXR
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2
