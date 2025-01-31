@@ -1,0 +1,43 @@
+# *.Rproj.user
+# *.Rhistory
+# *.RData
+# *.Ruserdata
+# .Rproj.user
+# .Rproj.user/
+# *.DS_Store
+# .Rproj.user
+# .Rhistory
+# .Rdata
+# .httr-oauth
+# .DS_Store
+# .quarto
+
+# /.quarto/
+
+# 编辑 .gitignore 文件
+echo "# Ignore everything in parent directory
+../
+!../DIVAS-main/
+
+# R specific
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# renv specific
+renv/library/
+renv/python/
+renv/staging/
+
+# Mac specific
+.DS_Store
+.localized
+
+# Project specific
+*.Rproj.user
+.Rproj.user
+" > .gitignore
+
+# 重新添加 .gitignore
+git add .gitignore
