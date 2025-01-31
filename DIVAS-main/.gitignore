@@ -14,8 +14,12 @@
 
 # /.quarto/
 
-# 在 DIVAS-main 目录下创建 .gitignore
-echo "# R specific
+# 编辑 .gitignore 文件
+echo "# Ignore everything in parent directory
+../
+!../DIVAS-main/
+
+# R specific
 .Rproj.user/
 .Rhistory
 .RData
@@ -28,9 +32,12 @@ renv/staging/
 
 # Mac specific
 .DS_Store
-
-# Ignore parent directory
-../*
+.localized
 
 # Project specific
-*.Rproj" > .gitignore
+*.Rproj.user
+.Rproj.user
+" > .gitignore
+
+# 重新添加 .gitignore
+git add .gitignore
