@@ -3,8 +3,9 @@ pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
   contributing: contributing.html
+  developers: developers.html
   DIVAS_User_Guide: DIVAS_User_Guide.html
-last_built: 2025-05-12T06:57Z
+last_built: 2025-05-12T07:50Z
 urls:
   reference: /reference
   article: /articles
