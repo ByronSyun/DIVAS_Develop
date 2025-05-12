@@ -91,14 +91,14 @@ See the documentation website for more detailed examples and tutorials.
 
 ### Core Team
 
-* **[Jiadong Mao](https://github.com/jdongmao)** - *Lead Developer, Maintainer*
-* **[Yinuo Sun](https://github.com/ByronSyun)** - *Package Maintainer*
+* **[Jiadong Mao](https://github.com/jiadongm)** - *Lead Developer, Maintainer*
+* **[Yinuo Sun](https://github.com/ByronSyun)** - *Package Developer, Maintainer*
 
 ### Contributors
 
-* **John Prothero** - *Author*
-* **Eric F. Lock** - *Author*
-* **J.S. Marron** - *Author*
+* **Kim-Anh Lê Cao** - *Author*
+* **Geraldine Kong** - *Author*
+* **xx** - *Author*
 
 ## References
 
