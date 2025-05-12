@@ -3,7 +3,7 @@ Type: Package
 Title: Data Integration via Analysis of Subspaces
 Version: 0.1.0
 Authors@R: c(
-  person("Yinuo", "Sun", , "yinuo.sun.1@unimelb.edu.au", role = "aut"),
+  person("Yinuo", "Sun", , "byronsunyinuoo@gmail.com", role = "aut"),
   person("Jiadong", "Mao", , "chiatungmao@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3818-1981")))
 Maintainer: Jiadong Mao <chiatungmao@gmail.com>
 Description: Based on 'Data integration via analysis of subspaces (DIVAS)' by Prothero et al. (2024),
@@ -25,3 +25,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
+URL: https://github.com/ByronSyun/DIVAS_Develop, https://byronsyun.github.io/DIVAS_Develop/
+BugReports: https://github.com/ByronSyun/DIVAS_Develop/issues

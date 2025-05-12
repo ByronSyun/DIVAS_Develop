@@ -1,0 +1,22 @@
+{
+  "name": "DIVAS",
+  "short_name": "DIVAS",
+  "description": "Data Integration via Analysis of Subspaces",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "background_color": "#ffffff",
+  "theme_color": "#158cba",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+} 

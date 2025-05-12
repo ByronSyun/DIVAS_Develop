@@ -1,0 +1,87 @@
+url: https://github.com/ByronSyun/DIVAS_Develop/tree/main # Updated GitHub repository URL
+template:
+  bootstrap: 5
+  bootswatch: flatly
+# autolink_bare_title: true # Commenting this out as it didn't resolve the issue
+destination: docs # Output to docs/ directory for GitHub Pages compatibility
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [developers, github]
+  components:
+    intro:
+      text: Home
+      href: index.html
+    reference:
+      text: Functions
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: "Getting Started"
+        href: articles/getting_started.html
+      - text: "DIVAS User Guide"
+        href: articles/DIVAS_User_Guide.html
+      - text: "Application Example: GNP Data"
+        href: articles/application_example.html
+      - text: "Contributing to DIVAS"
+        href: articles/contributing.html
+    developers:
+      text: Developers
+      href: articles/developers.html
+    github:
+      icon: fab fa-github
+      href: https://github.com/ByronSyun/DIVAS_Develop 
+      aria-label: "GitHub"
+      
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+    
+reference:
+  - title: "Main Functions"
+    desc: >
+      Core functions for DIVAS analysis
+    contents:
+      - DIVASmain
+      - DJIVEAngleDiagnosticJP
+      - DJIVEJointStrucEstimateJP
+      - DJIVEReconstructMJ
+      - DJIVESignalExtractJP
+      - MatCenterJP
+      - MatReconstructMJ
+      - MatSignalExtractJP
+      - MedianMarcenkoPastur
+      - PercentileMarcenkoPastur
+      - acosd
+      - incMarPas
+      - ksOpt
+      - optimal_shrinkage
+      - optshrink_impl
+      - randDirAngleMJ
+      - DIVAS-package # Usually good to include the package overview topic
+  - title: "Helper Functions"
+    desc: >
+      Utility functions to support the main analysis
+    # contents: # Temporarily removed as it's empty
+      # Add helper function names here later if needed
+  - title: "Visualization Functions"
+    desc: >
+      Functions for visualizing DIVAS results 
+    # contents: # Temporarily removed as it's empty
+      # Add visualization function names here later if needed
+
+vignettes:
+  - title: User Guides
+    desc: Comprehensive guides to using DIVAS
+    contents:
+      - DIVAS_User_Guide
+      - getting_started
+      - application_example
+      
+  - title: Development
+    desc: Information for contributors and developers
+    contents:
+      - contributing
+      - developers

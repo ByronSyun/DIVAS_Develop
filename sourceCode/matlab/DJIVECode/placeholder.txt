@@ -1,0 +1,15 @@
+The MATLAB code for DIVAS should be placed in this directory.
+
+You can obtain the original MATLAB implementation from:
+https://github.com/jbprothero/Data-Integration-Via-Analysis-of-Subspaces
+
+The main files include:
+- DJIVEMainJP.m
+- DJIVESignalExtractJP.m
+- DJIVEJointStrucEstimateJPLoadInfo.m
+- DJIVEReconstructMJ.m
+- DJIVEAngleDiagnosticJP.m
+- Various helper functions
+
+Please note that the MATLAB implementation requires the CVX optimization package:
+http://cvxr.com/cvx/ 

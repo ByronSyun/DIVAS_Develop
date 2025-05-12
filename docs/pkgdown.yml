@@ -1,0 +1,10 @@
+pandoc: 3.6.4
+pkgdown: 2.1.2
+pkgdown_sha: ~
+articles:
+  contributing: contributing.html
+  DIVAS_User_Guide: DIVAS_User_Guide.html
+last_built: 2025-05-12T06:57Z
+urls:
+  reference: /reference
+  article: /articles
