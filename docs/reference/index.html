@@ -18,11 +18,12 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/DIVAS_User_Guide.html">DIVAS User Guide</a></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/DIVAS_Toy_Dataset_Example.html">Toy Dataset Example</a></li>
+    <li><a class="dropdown-item" href="../articles/DIVAS_GNP_Dataset_Example.html">GNP Dataset Example</a></li>
     <li><a class="dropdown-item" href="../articles/contributing.html">Contributing to DIVAS</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://github.com/ByronSyun/DIVAS_Develop" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/ByronSyun/DIVAS_Develop" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul></div>
 
 
@@ -35,9 +36,26 @@
     </div>
 
     <div class="section level2">
-      <h2 id="main-functions">Main Functions<a class="anchor" aria-label="anchor" href="#main-functions"></a></h2>
+      <h2 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a></h2>
 
-      <div class="section-desc"><p>Core functions for DIVAS analysis</p></div>
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="DIVAS-package.html">DIVAS</a></code> <code><a href="DIVAS-package.html">DIVAS-package</a></code>
+
+        </dt>
+        <dd>DIVAS: Data Integration via Analysis of Subspaces</dd>
+      </dl></div><div class="section level2">
+      <h2 id="core-workflow-function">Core Workflow Function<a class="anchor" aria-label="anchor" href="#core-workflow-function"></a></h2>
+
+      <div class="section-desc"><p>The main function to run the DIVAS analysis pipeline.</p></div>
 
 
     </div><div class="section level2">
@@ -51,42 +69,23 @@
 
         </dt>
         <dd>Data integration via analysis of subspaces</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="signal-extraction-functions">Signal Extraction Functions<a class="anchor" aria-label="anchor" href="#signal-extraction-functions"></a></h2>
 
-          <code><a href="DJIVEAngleDiagnosticJP.html">DJIVEAngleDiagnosticJP()</a></code>
+      <div class="section-desc"><p>Functions for extracting signals from data matrices.</p></div>
 
-        </dt>
-        <dd>Create Diagnostic Plots for DJIVE Analysis</dd>
-      </dl><dl><dt>
 
-          <code><a href="DJIVEJointStrucEstimateJP.html">DJIVEJointStrucEstimateJP()</a></code>
+    </div><div class="section level2">
 
-        </dt>
-        <dd>Estimate full and partially shared joint structures Establish a DC programming problem to estimate each partially joint structure using Penalty CCP algorithm.</dd>
-      </dl><dl><dt>
 
-          <code><a href="DJIVEReconstructMJ.html">DJIVEReconstructMJ()</a></code>
 
-        </dt>
-        <dd>DJIVEReconstructMJ - Reconstruct joint blocks from data blocks</dd>
-      </dl><dl><dt>
+
+      <dl><dt>
 
           <code><a href="DJIVESignalExtractJP.html">DJIVESignalExtractJP()</a></code>
 
         </dt>
         <dd>Signal Matrix Extraction for DIVAS</dd>
-      </dl><dl><dt>
-
-          <code><a href="MatCenterJP.html">MatCenterJP()</a></code>
-
-        </dt>
-        <dd>Center a Matrix by Rows, Columns, or Both</dd>
-      </dl><dl><dt>
-
-          <code><a href="MatReconstructMJ.html">MatReconstructMJ()</a></code>
-
-        </dt>
-        <dd>MatReconstructMJ - Reconstruct joint block matrices and their loadings from data</dd>
       </dl><dl><dt>
 
           <code><a href="MatSignalExtractJP.html">MatSignalExtractJP()</a></code>
@@ -105,12 +104,6 @@
 
         </dt>
         <dd>Percentile of the Marcenko-Pastur Distribution</dd>
-      </dl><dl><dt>
-
-          <code><a href="acosd.html">acosd()</a></code>
-
-        </dt>
-        <dd>Arccosine in Degrees</dd>
       </dl><dl><dt>
 
           <code><a href="incMarPas.html">incMarPas()</a></code>
@@ -135,31 +128,93 @@
 
         </dt>
         <dd>Optimal Shrinkage of Singular Values</dd>
+      </dl></div><div class="section level2">
+      <h2 id="joint-structure-estimation-functions">Joint Structure Estimation Functions<a class="anchor" aria-label="anchor" href="#joint-structure-estimation-functions"></a></h2>
+
+      <div class="section-desc"><p>Functions for estimating joint and individual structures.</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="DJIVEJointStrucEstimateJP.html">DJIVEJointStrucEstimateJP()</a></code>
+
+        </dt>
+        <dd>Estimate full and partially shared joint structures Establish a DC programming problem to estimate each partially joint structure using Penalty CCP algorithm.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="reconstruction-functions">Reconstruction Functions<a class="anchor" aria-label="anchor" href="#reconstruction-functions"></a></h2>
+
+      <div class="section-desc"><p>Functions for reconstructing data based on identified structures.</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="DJIVEReconstructMJ.html">DJIVEReconstructMJ()</a></code>
+
+        </dt>
+        <dd>DJIVEReconstructMJ - Reconstruct joint blocks from data blocks</dd>
+      </dl><dl><dt>
+
+          <code><a href="MatReconstructMJ.html">MatReconstructMJ()</a></code>
+
+        </dt>
+        <dd>MatReconstructMJ - Reconstruct joint block matrices and their loadings from data</dd>
+      </dl></div><div class="section level2">
+      <h2 id="diagnostic-functions">Diagnostic Functions<a class="anchor" aria-label="anchor" href="#diagnostic-functions"></a></h2>
+
+      <div class="section-desc"><p>Functions for diagnosing and evaluating the DIVAS results.</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="DJIVEAngleDiagnosticJP.html">DJIVEAngleDiagnosticJP()</a></code>
+
+        </dt>
+        <dd>Create Diagnostic Plots for DJIVE Analysis</dd>
       </dl><dl><dt>
 
           <code><a href="randDirAngleMJ.html">randDirAngleMJ()</a></code>
 
         </dt>
         <dd>Calculate Random Direction Angles</dd>
-      </dl><dl><dt>
-
-          <code><a href="DIVAS-package.html">DIVAS</a></code> <code><a href="DIVAS-package.html">DIVAS-package</a></code>
-
-        </dt>
-        <dd>DIVAS: Data Integration via Analysis of Subspaces</dd>
       </dl></div><div class="section level2">
-      <h2 id="helper-functions">Helper Functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a></h2>
+      <h2 id="utility-functions">Utility Functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a></h2>
 
-      <div class="section-desc"><p>Utility functions to support the main analysis</p></div>
+      <div class="section-desc"><p>Helper functions used within the DIVAS workflow.</p></div>
 
 
     </div><div class="section level2">
-      <h2 id="visualization-functions">Visualization Functions<a class="anchor" aria-label="anchor" href="#visualization-functions"></a></h2>
-
-      <div class="section-desc"><p>Functions for visualizing DIVAS results</p></div>
 
 
-    </div>
+
+
+      <dl><dt>
+
+          <code><a href="MatCenterJP.html">MatCenterJP()</a></code>
+
+        </dt>
+        <dd>Center a Matrix by Rows, Columns, or Both</dd>
+      </dl><dl><dt>
+
+          <code><a href="acosd.html">acosd()</a></code>
+
+        </dt>
+        <dd>Arccosine in Degrees</dd>
+      </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -169,7 +224,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>

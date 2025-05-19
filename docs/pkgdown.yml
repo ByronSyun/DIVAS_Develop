@@ -4,8 +4,9 @@ pkgdown_sha: ~
 articles:
   contributing: contributing.html
   developers: developers.html
-  DIVAS_User_Guide: DIVAS_User_Guide.html
-last_built: 2025-05-12T07:56Z
+  DIVAS_GNP_Dataset_Example: DIVAS_GNP_Dataset_Example.html
+  DIVAS_Toy_Dataset_Example: DIVAS_Toy_Dataset_Example.html
+last_built: 2025-05-19T10:03Z
 urls:
-  reference: /reference
-  article: /articles
+  reference: https://byronsyun.github.io/DIVAS_Develop/reference
+  article: https://byronsyun.github.io/DIVAS_Develop/articles

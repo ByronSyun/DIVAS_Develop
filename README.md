@@ -1,7 +1,7 @@
 # DIVAS: Data Integration via Analysis of Subspaces
 
 <p align="center">
-<img src="figs/DIVAS_logo.png" width="200" alt="DIVAS Logo">
+<img src="man/figures/DIVAS_logo.png" width="200" alt="DIVAS Logo">
 </p>
 
 ## Introduction
@@ -82,10 +82,10 @@ See the documentation website for more detailed examples and tutorials.
 
 ## Available Datasets
 
-| Dataset | Description | Size | Format | Reference |
-|---------|-------------|------|--------|-----------|
-| toyDataThreeWay.mat | Synthetic data with 3 blocks having known joint structures | 100×50, 100×40, 100×30 | .mat | Prothero et al. (2024) |
-| gnp_imputed.qs | GNP economic time series data | 296×14 | .qs | Stock & Watson (2016) |
+| Dataset             | Brief Description                                  | Vignette Link                                                                          | Format | Primary Reference      |
+|---------------------|----------------------------------------------------|----------------------------------------------------------------------------------------|--------|------------------------|
+| toyDataThreeWay.mat | Synthetic 3-block data with known joint structures | [Toy Dataset Example](articles/DIVAS_Toy_Dataset_Example.html)                           | .mat   | Prothero et al. (2024) |
+| gnp_imputed.qs      | Multi-omics GNP data (RNA, Protein, MicroRNA)      | [GNP Dataset Example](articles/DIVAS_GNP_Dataset_Example.html)                           | .qs    | Klein et al. (2025)    |
 
 ## Developers
 
