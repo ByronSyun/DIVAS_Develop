@@ -21,6 +21,11 @@ jobs:
     # Only deploy on push events to main branch
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     
@@ -35,7 +40,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown
+          extra-packages: any::pkgdown, local::.
           needs: website
 
       - name: Install CVXR specific version
@@ -48,7 +53,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: 'docs'
 
