@@ -87,6 +87,12 @@ See the documentation website for more detailed examples and tutorials.
 | toyDataThreeWay.mat | Synthetic 3-block data with known joint structures | [Toy Dataset Example](articles/DIVAS_Toy_Dataset_Example.html)                           | .mat   | Prothero et al. (2024) |
 | gnp_imputed.qs      | Multi-omics GNP data (RNA, Protein, MicroRNA)      | [GNP Dataset Example](articles/DIVAS_GNP_Dataset_Example.html)                           | .qs    | Klein et al. (2025)    |
 
+## Case Study: COVID-19 Multi-Omics Analysis
+
+This project serves as a comprehensive, real-world application of the DIVAS package on a complex multi-omics dataset from a COVID-19 patient cohort. It demonstrates the full data processing and analysis workflow, from raw data cleaning to final DIVAS results, showcasing the practical utility of the package.
+
+**➡️ [View the full analysis on GitHub](https://github.com/ByronSyun/DIVAS_COVID19_Analysis_Repo)**
+
 ## Developers
 
 ### Core Team
