@@ -88,6 +88,7 @@ See the documentation website for more detailed examples and tutorials.
 |---------------------|----------------------------------------------------|----------------------------------------------------------------------------------------|--------|------------------------|
 | toyDataThreeWay.mat | Synthetic 3-block data with known joint structures | [Toy Dataset Example](articles/DIVAS_Toy_Dataset_Example.html)                           | .mat   | Prothero et al. (2024) |
 | gnp_imputed.qs      | Multi-omics GNP data (RNA, Protein, MicroRNA)      | [GNP Dataset Example](articles/DIVAS_GNP_Dataset_Example.html)                           | .qs    | Klein et al. (2025)    |
+| covid_multi_omics.qs | Multi-omics COVID-19 patient data (plasma proteins, metabolites, PBMC transcriptomics) | Coming Soon | .qs | Su et al. (2020) |
 
 ## Case Study: COVID-19 Multi-Omics Analysis
 
@@ -111,6 +112,8 @@ This project serves as a comprehensive, real-world application of the DIVAS pack
 ## References
 
 Prothero, J., et al. (2024). Data integration via analysis of subspaces (DIVAS).
+
+Su, Y., Chen, D., Yuan, D., et al. (2020). Multi-Omics Resolves a Sharp Disease-State Shift between Mild and Moderate COVID-19. Cell, 183(6), 1479-1495. https://doi.org/10.1016/j.cell.2020.10.037
 
 ## Contributing
 
