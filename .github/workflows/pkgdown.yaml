@@ -23,18 +23,8 @@ jobs:
     # Only restrict concurrency for non-PR jobs
     concurrency:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
-    
-    # Only deploy on push events to main branch
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    
     steps:
       - uses: actions/checkout@v4
 
