@@ -84,11 +84,11 @@ See the documentation website for more detailed examples and tutorials.
 
 ## Available Datasets
 
-| Dataset             | Brief Description                                  | Vignette Link                                                                          | Format | Primary Reference      |
-|---------------------|----------------------------------------------------|----------------------------------------------------------------------------------------|--------|------------------------|
-| toyDataThreeWay.mat | Synthetic 3-block data with known joint structures | [Toy Dataset Example](articles/DIVAS_Toy_Dataset_Example.html)                           | .mat   | Prothero et al. (2024) |
-| gnp_imputed.qs      | Multi-omics GNP data (RNA, Protein, MicroRNA)      | [GNP Dataset Example](articles/DIVAS_GNP_Dataset_Example.html)                           | .qs    | Klein et al. (2025)    |
-| covid_multi_omics.qs | Multi-omics COVID-19 patient data (plasma proteins, metabolites, PBMC transcriptomics) | Coming Soon | .qs | Su et al. (2020) |
+| Dataset             | Brief Description                                  | Vignette Link                                                                                        | Format | Primary Reference      |
+|---------------------|----------------------------------------------------|------------------------------------------------------------------------------------------------------|--------|------------------------|
+| toyDataThreeWay.mat | Synthetic 3-block data with known joint structures | [Toy Dataset Example](https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_Toy_Dataset_Example.html) | .mat   | Prothero et al. (2024) |
+| gnp_imputed.qs      | Multi-omics GNP data (RNA, Protein, MicroRNA)      | [GNP Dataset Example](https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_GNP_Dataset_Example.html) | .qs    | Klein et al. (2025)    |
+| covid_multi_omics.qs | Multi-omics COVID-19 patient data (plasma proteins, metabolites, PBMC transcriptomics) | Coming Soon                                                                                          | .qs    | Su et al. (2020)       |
 
 ## Case Study: COVID-19 Multi-Omics Analysis
 
