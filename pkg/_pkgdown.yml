@@ -19,12 +19,12 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: "Getting Started"
-        href: articles/getting_started.html
+      - text: "Toy Dataset Example"
+        href: articles/DIVAS_Toy_Dataset_Example.html
+      - text: "GNP Dataset Example"
+        href: articles/DIVAS_GNP_Dataset_Example.html
       - text: "DIVAS User Guide"
         href: articles/DIVAS_User_Guide.html
-      - text: "Application Example: GNP Data"
-        href: articles/application_example.html
       - text: "Contributing to DIVAS"
         href: articles/contributing.html
     developers:
