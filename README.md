@@ -59,8 +59,10 @@ library(devtools)
 library(R.matlab)
 library(DIVAS)
 
+# Construct the path to the data file within the package
+data_path <- system.file("extdata", "toyDataThreeWay.mat", package = "DIVAS")
 # Read MATLAB data
-data <- readMat('toyDataThreeWay.mat')
+data <- readMat(data_path)
 
 # Prepare data blocks
 datablock <- list(
