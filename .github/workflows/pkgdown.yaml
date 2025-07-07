@@ -57,7 +57,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './pkg/docs'
+          path: 'pkg/docs'
 
       # Deploy to GitHub pages
       - name: Deploy to GitHub Pages
