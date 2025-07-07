@@ -57,7 +57,7 @@ The DIVAS package supports analysis of various data formats. Here are two exampl
 # Load necessary libraries
 library(devtools)
 library(R.matlab)
-(DIVAS)
+library(DIVAS)
 
 # Read MATLAB data
 data <- readMat('toyDataThreeWay.mat')
