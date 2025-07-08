@@ -13,10 +13,10 @@ DIVAS (Data Integration via Analysis of Subspaces) is an R package for multi-mod
 ## Repository Structure
 
 ```
-DIVAS-main/              # Main project directory
+.
 ├── pkg/                 # R package source code
 ├── docs/                # Generated documentation website
-├── figs/                # Figures and logo files
+├── man/                 # Package manual and figures
 ├── papers/              # Related publications
 └── sourceCode/          # Development code and examples
     ├── examples/        # Example R scripts
@@ -27,24 +27,27 @@ DIVAS-main/              # Main project directory
 
 ### Dependencies
 
-DIVAS package requires a specific version of CVXR (0.99-7). Please install the correct version of CVXR first:
+The DIVAS package requires a modern version of the `CVXR` package to ensure compatibility with underlying solvers like SCS. We strongly recommend installing the latest stable version from CRAN.
 
 ```R
 # Install devtools (if not already installed)
 install.packages("devtools")
 
-# Install the specified version of CVXR
-devtools::install_version("CVXR", version = "0.99-7", repos = "http://cran.us.r-project.org")
+# Install the latest version of CVXR from CRAN
+# This is critical to avoid issues with solver status recognition (e.g., for SCS)
+install.packages("CVXR")
 ```
 
 ### Installing the DIVAS package
 
-```R
-# Install DIVAS package from GitHub
-devtools::install_github("ByronSyun/DIVAS_Develop/pkg", ref = "DIVAS-v1")
+You can install the development version of DIVAS from GitHub using `devtools`:
 
-# Or install from local folder
-devtools::install("path/to/DIVAS/pkg")
+```R
+# Install DIVAS package from the main branch on GitHub
+devtools::install_github("ByronSyun/DIVAS_Develop/pkg", ref = "main")
+
+# Or install from a local folder if you have cloned the repository
+# devtools::install("path/to/DIVAS-main/pkg")
 ```
 
 ## Usage Examples
