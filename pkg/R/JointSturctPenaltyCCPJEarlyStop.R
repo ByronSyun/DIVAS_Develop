@@ -36,7 +36,17 @@ ccpSubOptJPEarlyStop <- function(v0, Qo1, Qo2, Qc1, Qc2, Vo, tau) {
   # cvx_end
 
   problem <- CVXR::Problem(CVXR::Minimize(objective), constraints)
-  result <- CVXR::psolve(problem, solver = "ECOS")
+  # Changed the hardcoded solver from "ECOS" to the more robust "SCS"
+  # to handle numerical difficulties that caused the previous "Solver failed" error.
+  result <- CVXR::psolve(problem, solver = "SCS")
+
+  # PATCH: Intercept and correct the solver status.
+  # The 'SCS' solver can return a status of "solved" which CVXR version 1.0.15
+  # does not recognize, causing a "status unrecognized" error.
+  # We manually map "solved" to "optimal" to ensure compatibility.
+  if (result$status == "solved") {
+    result$status <- "optimal"
+  }
 
   # result <- CVXR::solve(problem)
   #result <- solve(problem, solver = "ECOS")
