@@ -2,17 +2,15 @@ url: https://byronsyun.github.io/DIVAS_Develop/ # You can update this later to y
 template:
   bootstrap: 5
   bootswatch: flatly
+  logo: DIVAS_logo.png
 # autolink_bare_title: true # Commenting this out as it didn't resolve the issue
 destination: docs # Output to docs/ directory for GitHub Pages compatibility
 
 navbar:
   structure:
-    left:  [intro, reference, vignettes, tutorials, news]
+    left:  [intro, reference, vignettes]
     right: [github]
   components:
-    logo:
-      image: man/figures/logo.png
-      href: index.html
     intro:
       text: Home
       href: index.html
@@ -28,9 +26,9 @@ navbar:
         href: articles/DIVAS_GNP_Dataset_Example.html
     github:
       icon: fab fa-github
-      href: https://github.com/ByronSyun/DIVAS_Develop 
+      href: https://github.com/ByronSyun/DIVAS_Develop
       aria-label: "GitHub"
-      
+
 home:
   sidebar:
     structure: [links, license, community, citation, authors, dev]
