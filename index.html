@@ -34,17 +34,14 @@
 <li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Functions</a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
 <li><a class="dropdown-item" href="articles/DIVAS_Toy_Dataset_Example.html">Toy Dataset Example</a></li>
     <li><a class="dropdown-item" href="articles/DIVAS_GNP_Dataset_Example.html">GNP Dataset Example</a></li>
-    <li><a class="dropdown-item" href="articles/DIVAS_User_Guide.html">DIVAS User Guide</a></li>
-    <li><a class="dropdown-item" href="articles/contributing.html">Contributing to DIVAS</a></li>
   </ul>
 </li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="nav-link" href="articles/developers.html">Developers</a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/ByronSyun/DIVAS_Develop" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
@@ -53,8 +50,188 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Based on 'Data integration via analysis of subspaces (DIVAS)' by Prothero et al. (2024), this is a package that implements the DIVAS methodology for multi-modal data integration. This package provides tools for signal extraction, noise estimation and joint structure identification from high-dimensional datasets, useful for multi-omics and other complex data types.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="divas-data-integration-via-analysis-of-subspaces">DIVAS: Data Integration via Analysis of Subspaces<a class="anchor" aria-label="anchor" href="#divas-data-integration-via-analysis-of-subspaces"></a>
+</h1></div>
+<p align="center">
+<img src="reference/figures/DIVAS_logo.png" width="200" alt="DIVAS Logo"></p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>DIVAS (Data Integration via Analysis of Subspaces) is an R package for multi-modal data integration. Based on the DIVAS methodology proposed by Prothero et al. (2024), it provides tools for signal extraction, noise estimation, and joint structure identification from high-dimensional datasets, useful for multi-omics and other complex data types.</p>
+<p><strong>Documentation website</strong>: <a href="https://github.com/ByronSyun/DIVAS_Develop/tree/main" class="external-link">https://github.com/ByronSyun/DIVAS_Develop/tree/main</a></p>
+</div>
+<div class="section level2">
+<h2 id="repository-structure">Repository Structure<a class="anchor" aria-label="anchor" href="#repository-structure"></a>
+</h2>
+<pre><code>.
+├── pkg/                 # R package source code
+├── docs/                # Generated documentation website
+├── man/                 # Package manual and figures
+├── papers/              # Related publications
+└── sourceCode/          # Development code and examples
+    ├── examples/        # Example R scripts
+    └── matlab/          # Original MATLAB implementation</code></pre>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="section level3">
+<h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+</h3>
+<p>The DIVAS package requires a modern version of the <code>CVXR</code> package to ensure compatibility with underlying solvers like SCS. We strongly recommend installing the latest stable version from CRAN.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install devtools (if not already installed)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Install the latest version of CVXR from CRAN</span></span>
+<span><span class="co"># This is critical to avoid issues with solver status recognition (e.g., for SCS)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"CVXR"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="installing-the-divas-package">Installing the DIVAS package<a class="anchor" aria-label="anchor" href="#installing-the-divas-package"></a>
+</h3>
+<p>You can install the development version of DIVAS from GitHub using <code>devtools</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install DIVAS package from the main branch on GitHub</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ByronSyun/DIVAS_Develop/pkg"</span>, ref <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or install from a local folder if you have cloned the repository</span></span>
+<span><span class="co"># devtools::install("path/to/DIVAS-main/pkg")</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="usage-examples">Usage Examples<a class="anchor" aria-label="anchor" href="#usage-examples"></a>
+</h2>
+<p>The DIVAS package supports analysis of various data formats. Here are two examples using different data formats:</p>
+<div class="section level3">
+<h3 id="example-1-using-matlab-data">Example 1: Using MATLAB data<a class="anchor" aria-label="anchor" href="#example-1-using-matlab-data"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/R.matlab" class="external-link">R.matlab</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ByronSyun/DIVAS_Develop" class="external-link">DIVAS</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Construct the path to the data file within the package</span></span>
+<span><span class="va">data_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"toyDataThreeWay.mat"</span>, package <span class="op">=</span> <span class="st">"DIVAS"</span><span class="op">)</span></span>
+<span><span class="co"># Read MATLAB data</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/R.matlab/man/readMat.html" class="external-link">readMat</a></span><span class="op">(</span><span class="va">data_path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Prepare data blocks</span></span>
+<span><span class="va">datablock</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  X1 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">datablock</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  X2 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">datablock</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  X3 <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">datablock</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run DIVAS main function</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/DIVASmain.html">DIVASmain</a></span><span class="op">(</span><span class="va">datablock</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize results</span></span>
+<span><span class="va">dataname</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DataBlock_"</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">datablock</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/DJIVEAngleDiagnosticJP.html">DJIVEAngleDiagnosticJP</a></span><span class="op">(</span><span class="va">datablock</span>, <span class="va">dataname</span>, <span class="va">result</span>, <span class="fl">566</span>, <span class="st">"Demo"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plots</span><span class="op">)</span></span></code></pre></div>
+<p>See the documentation website for more detailed examples and tutorials.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="available-datasets">Available Datasets<a class="anchor" aria-label="anchor" href="#available-datasets"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="9%">
+<col width="24%">
+<col width="50%">
+<col width="3%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th>Dataset</th>
+<th>Brief Description</th>
+<th>Vignette Link</th>
+<th>Format</th>
+<th>Primary Reference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>toyDataThreeWay.mat</td>
+<td>Synthetic 3-block data with known joint structures</td>
+<td><a href="https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_Toy_Dataset_Example.html">Toy Dataset Example</a></td>
+<td>.mat</td>
+<td>Prothero et al. (2024)</td>
+</tr>
+<tr class="even">
+<td>gnp_imputed.qs</td>
+<td>GNP economic time series data</td>
+<td><a href="https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_GNP_Dataset_Example.html">GNP Dataset Example</a></td>
+<td>.qs</td>
+<td>Stock &amp; Watson (2016)</td>
+</tr>
+<tr class="odd">
+<td>covid_multi_omics.qs</td>
+<td>Multi-omics COVID-19 patient data (plasma proteins, metabolites, PBMC transcriptomics)</td>
+<td>Coming Soon</td>
+<td>.qs</td>
+<td>Su et al. (2020)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="case-study-covid-19-multi-omics-analysis">Case Study: COVID-19 Multi-Omics Analysis<a class="anchor" aria-label="anchor" href="#case-study-covid-19-multi-omics-analysis"></a>
+</h2>
+<p>This project serves as a comprehensive, real-world application of the DIVAS package on a complex multi-omics dataset from a COVID-19 patient cohort. It demonstrates the full data processing and analysis workflow, from raw data cleaning to final DIVAS results, showcasing the practical utility of the package.</p>
+<p><strong>➡️ <a href="https://github.com/ByronSyun/DIVAS_COVID19_Analysis" class="external-link">View the full analysis on GitHub</a></strong></p>
+</div>
+<div class="section level2">
+<h2 id="developers">Developers<a class="anchor" aria-label="anchor" href="#developers"></a>
+</h2>
+<div class="section level3">
+<h3 id="core-team">Core Team<a class="anchor" aria-label="anchor" href="#core-team"></a>
+</h3>
+<ul>
+<li>
+<strong><a href="https://github.com/jiadongm" class="external-link">Jiadong Mao</a></strong> - <em>Lead Developer, Maintainer</em>
+</li>
+<li>
+<strong><a href="https://github.com/ByronSyun" class="external-link">Yinuo Sun</a></strong> - <em>Package Developer, Maintainer</em>
+</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
+</h3>
+<ul>
+<li>
+<strong>Kim-Anh Lê Cao</strong> - <em>Author</em>
+</li>
+<li>
+<strong>Geraldine Kong</strong> - <em>Author</em>
+</li>
+<li>
+<strong>xx</strong> - <em>Author</em>
+</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>Prothero, J., et al. (2024). Data integration via analysis of subspaces (DIVAS).</p>
+<p>Su, Y., Chen, D., Yuan, D., et al. (2020). Multi-Omics Resolves a Sharp Disease-State Shift between Mild and Moderate COVID-19. Cell, 183(6), 1479-1495. <a href="https://doi.org/10.1016/j.cell.2020.10.037" class="external-link uri">https://doi.org/10.1016/j.cell.2020.10.037</a></p>
+</div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>We welcome contributions to the DIVAS package. Please see our <a href="https://byronsyun.github.io/DIVAS_Develop/articles/contributing.html">contributing guidelines</a> for more information.</p>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

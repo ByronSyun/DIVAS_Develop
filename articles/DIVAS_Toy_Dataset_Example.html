@@ -32,17 +32,14 @@
 <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
 <li><a class="dropdown-item" href="../articles/DIVAS_Toy_Dataset_Example.html">Toy Dataset Example</a></li>
     <li><a class="dropdown-item" href="../articles/DIVAS_GNP_Dataset_Example.html">GNP Dataset Example</a></li>
-    <li><a class="dropdown-item" href="../articles/DIVAS_User_Guide.html">DIVAS User Guide</a></li>
-    <li><a class="dropdown-item" href="../articles/contributing.html">Contributing to DIVAS</a></li>
   </ul>
 </li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="nav-link" href="../articles/developers.html">Developers</a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/ByronSyun/DIVAS_Develop" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
@@ -60,7 +57,7 @@
       <h1>DIVAS Vignette: Toy Dataset Example</h1>
                         <h4 data-toc-skip class="author">Yinuo Sun</h4>
             
-            <h4 data-toc-skip class="date">2025-07-08</h4>
+            <h4 data-toc-skip class="date">2025-07-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ByronSyun/DIVAS_Develop/blob/main/vignettes/DIVAS_Toy_Dataset_Example.Rmd" class="external-link"><code>vignettes/DIVAS_Toy_Dataset_Example.Rmd</code></a></small>
       <div class="d-none name"><code>DIVAS_Toy_Dataset_Example.Rmd</code></div>
@@ -103,7 +100,7 @@ installation instructions, especially regarding the required
 DIVAS by the original author. It’s stored in MATLAB format.</p>
 <p>This dataset contains a variable named <code>datablock</code>, which
 is a MATLAB cell array with dimensions 1×3. Inside R, after loading with
-<code>readMat()</code>, it becomes a nested list structure with three
+<code><a href="https://rdrr.io/pkg/R.matlab/man/readMat.html" class="external-link">readMat()</a></code>, it becomes a nested list structure with three
 elements, each containing a data matrix. It also includes a
 <code>dataname</code> variable that provides labels (“X1”, “X2”, “X3”)
 for these data blocks.</p>
