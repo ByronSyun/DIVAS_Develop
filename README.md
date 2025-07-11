@@ -1,7 +1,7 @@
 # DIVAS: Data Integration via Analysis of Subspaces
 
 <p align="center">
-  <img src="man/figures/DIVAS_logo.png" width="200" alt="DIVAS Logo">
+  <img src="man/figures/DIVAS_logo1.png" width="200" alt="DIVAS Logo">
 </p>
 
 ## Introduction
