@@ -1,5 +1,3 @@
-.navbar-brand img {
-  max-height: 40px;
-  margin-top: -10px;
-  margin-bottom: -10px;
+.page-header .logo {
+  display: none;
 } 

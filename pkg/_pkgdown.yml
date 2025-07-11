@@ -2,9 +2,9 @@ url: https://byronsyun.github.io/DIVAS_Develop/ # You can update this later to y
 template:
   bootstrap: 5
   bootswatch: flatly
-  logo: DIVAS_logo.png
+  extra_css: pkgdown/extra.css
 # autolink_bare_title: true # Commenting this out as it didn't resolve the issue
-destination: docs # Output to docs/ directory for GitHub Pages compatibility
+destination: ../docs # Output to the top-level docs/ directory
 
 navbar:
   structure:
