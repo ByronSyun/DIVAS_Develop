@@ -36,7 +36,9 @@ ccpSubOptJPEarlyStop <- function(v0, Qo1, Qo2, Qc1, Qc2, Vo, tau) {
   # cvx_end
 
   problem <- CVXR::Problem(CVXR::Minimize(objective), constraints)
-  result <- CVXR::psolve(problem, solver = "ECOS")
+  #result <- CVXR::psolve(problem, solver = "ECOS")
+  # if error, change back to ECOS
+  result <- CVXR::psolve(problem, solver = "SCS")
 
   # result <- CVXR::solve(problem)
   #result <- solve(problem, solver = "ECOS")

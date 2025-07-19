@@ -26,9 +26,9 @@ navbar:
         href: articles/DIVAS_GNP_Dataset_Example.html
     github:
       icon: fab fa-github
-      href: https://github.com/ByronSyun/DIVAS_Develop
+      href: https://github.com/ByronSyun/DIVAS_Develop 
       aria-label: "GitHub"
-
+      
 home:
   sidebar:
     structure: [links, license, community, citation, authors, dev]
