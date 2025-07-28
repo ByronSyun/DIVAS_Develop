@@ -6,14 +6,25 @@
 \alias{DIVAS-package}
 \title{DIVAS: Data Integration via Analysis of Subspaces}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Based on 'Data integration via analysis of subspaces (DIVAS)' by Prothero et al. (2024), this is a package that implements the DIVAS methodology for multi-modal data integration. This package provides tools for signal extraction, noise estimation and joint structure identification from high-dimensional datasets, useful for multi-omics and other complex data types.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ByronSyun/DIVAS_Develop}
+  \item \url{https://byronsyun.github.io/DIVAS_Develop/}
+  \item Report bugs at \url{https://github.com/ByronSyun/DIVAS_Develop/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Jiadong Mao \email{chiatungmao@gmail.com} (\href{https://orcid.org/0000-0002-3818-1981}{ORCID})
 
 Authors:
 \itemize{
-  \item Yinuo Sun \email{yinuo.sun.1@unimelb.edu.au}
+  \item Yinuo Sun \email{byronsunyinuoo@gmail.com}
 }
 
 }

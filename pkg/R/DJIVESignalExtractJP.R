@@ -10,6 +10,7 @@
 #' @param cull A numeric value for the culling parameter to adjust signal rank.
 #' @param noisepercentile A numeric vector specifying the percentiles used for noise estimation for each data block.
 #' @param noiselvls A list specifying noise levels for each data block; if NULL, noise levels are estimated internally.
+#' @param seed Optional. An integer to set the seed for the random number generator. Default is `NULL`.
 #'
 #' @return A list containing:
 #'   \describe{
@@ -30,7 +31,8 @@
 DJIVESignalExtractJP <- function(
     datablock, nsim = 400,
     iplot = FALSE, colCent = F, rowCent = F, cull = 0.382,
-    noisepercentile = rep(0.5, length(datablock)), noiselvls = NULL
+    noisepercentile = rep(0.5, length(datablock)), noiselvls = NULL,
+    seed = NULL
 ){
 
   # Check input dimensions
@@ -78,9 +80,9 @@ DJIVESignalExtractJP <- function(
 
     # Check if noiselvls is provided or not
     if (is.null(noiselvls)) {
-      result <- MatSignalExtractJP(datablockc, dataname[ib], nsim, colCent, rowCent, cull, percentile)
+      result <- MatSignalExtractJP(datablockc, dataname[ib], nsim, colCent, rowCent, cull, percentile, seed = seed)
     } else {
-      result <- MatSignalExtractJP(datablockc, dataname[ib], nsim, colCent, rowCent, cull, noiselvls[[ib]])
+      result <- MatSignalExtractJP(datablockc, dataname[ib], nsim, colCent, rowCent, cull, noiselvls[[ib]], seed = seed)
     }
 
     VBars[[ib]] <- result$VBar

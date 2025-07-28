@@ -9,6 +9,7 @@
 #' @param colCent Whether to column centre the input data blocks.
 #' @param rowCent Whether to row centre the input data blocks.
 #' @param figdir If not NULL, then diagnostic plots will be saved to this directory.
+#' @param seed Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.
 #'
 #' @return A list containing DIVAS integration results. Most important ones include
 #'   \describe{
@@ -36,7 +37,7 @@
 #' @export
 DIVASmain <- function(
     datablock, nsim = 400, iprint = TRUE, colCent = FALSE, rowCent = FALSE,
-    figdir = NULL
+    figdir = NULL, seed = NULL
   ){
 
   # Initialize parameters
@@ -64,7 +65,8 @@ DIVASmain <- function(
   # Step 1: Estimate signal space and perturbation angle
   Phase1 <- DJIVESignalExtractJP(
     datablock = datablock, nsim = nsim,
-    iplot = FALSE, colCent = colCent, rowCent = rowCent, cull = filterPerc, noisepercentile = noisepercentile
+    iplot = FALSE, colCent = colCent, rowCent = rowCent, cull = filterPerc, noisepercentile = noisepercentile,
+    seed = seed
   )
   # VBars <- Phase1[[1]]
   # UBars <- Phase1[[2]]
@@ -99,6 +101,22 @@ DIVASmain <- function(
   outstruct$VVHatCacheBars <- Phase1$VVHatCacheBars
   outstruct$UUHatCacheBars <- Phase1$UUHatCacheBars
   outstruct$jointBasisMapRaw <- Phase2$outMap
+
+  # Automatically generate keymapname from keymapid
+  ids <- as.integer(names(outstruct$keyIdxMap))
+  num_blocks <- length(dataname)
+  
+  keymapname <- sapply(ids, function(id) {
+    binary_str <- R.utils::intToBin(id)
+    padded_binary_str <- sprintf(paste0("%0", num_blocks, "s"), binary_str)
+    binary_chars <- strsplit(padded_binary_str, "")[[1]]
+    selected_indices <- which(rev(binary_chars) == '1')
+    selected_names <- dataname[selected_indices]
+    paste(selected_names, collapse = "+")
+  })
+  
+  names(keymapname) <- names(outstruct$keyIdxMap)
+  outstruct$keymapname <- keymapname
 
   return(outstruct)
 }
