@@ -1,3 +1,4 @@
+utils::globalVariables(c("x", "y", "xend", "yend", "g", "col", "row", "b"))
 takeNormOfEachColumnJP <- function(inmat) {
   d <- nrow(inmat)
   sumsqs <- sqrt(colSums(inmat^2))
