@@ -49,7 +49,8 @@
 <span>  rowCent <span class="op">=</span> <span class="cn">F</span>,</span>
 <span>  cull <span class="op">=</span> <span class="fl">0.382</span>,</span>
 <span>  percentile <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  noiselvl <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  noiselvl <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +88,10 @@
 
 <dt id="arg-noiselvl">noiselvl<a class="anchor" aria-label="anchor" href="#arg-noiselvl"></a></dt>
 <dd><p>Optional. A noise level parameter that can be either a numeric value or 'ks' to use the `ksOpt` function for noise level estimation. If not provided, an optimal shrinkage method will be used.</p></dd>
+
+
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
+<dd><p>Optional. A seed for the random number generator to ensure reproducibility.</p></dd>
 
 </dl></div>
     <div class="section level2">

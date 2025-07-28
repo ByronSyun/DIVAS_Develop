@@ -49,7 +49,8 @@
 <span>  rowCent <span class="op">=</span> <span class="cn">F</span>,</span>
 <span>  cull <span class="op">=</span> <span class="fl">0.382</span>,</span>
 <span>  noisepercentile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">datablock</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  noiselvls <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  noiselvls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +88,10 @@
 
 <dt id="arg-noiselvls">noiselvls<a class="anchor" aria-label="anchor" href="#arg-noiselvls"></a></dt>
 <dd><p>A list specifying noise levels for each data block; if NULL, noise levels are estimated internally.</p></dd>
+
+
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
+<dd><p>Optional. An integer to set the seed for the random number generator. Default is `NULL`.</p></dd>
 
 </dl></div>
     <div class="section level2">

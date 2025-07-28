@@ -50,7 +50,8 @@ structure with diagnostic plots.</p>
 <span>  iprint <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  colCent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  rowCent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  figdir <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  figdir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,6 +81,10 @@ structure with diagnostic plots.</p>
 
 <dt id="arg-figdir">figdir<a class="anchor" aria-label="anchor" href="#arg-figdir"></a></dt>
 <dd><p>If not NULL, then diagnostic plots will be saved to this directory.</p></dd>
+
+
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
+<dd><p>Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.</p></dd>
 
 </dl></div>
     <div class="section level2">
