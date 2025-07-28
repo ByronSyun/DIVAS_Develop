@@ -10,6 +10,7 @@
 #' @param cull A numeric value controlling the culling process during signal extraction. Default is `0.5`.
 #' @param percentile A numeric value representing the percentile for estimating the noise level.
 #' @param noiselvl Optional. A noise level parameter that can be either a numeric value or 'ks' to use the `ksOpt` function for noise level estimation. If not provided, an optimal shrinkage method will be used.
+#' @param seed Optional. A seed for the random number generator to ensure reproducibility.
 #'
 #' @return A list containing:
 #' \describe{
@@ -31,12 +32,17 @@
 #'
 MatSignalExtractJP <- function(
     X, matName = NULL, nsim = 400, colCent = F, rowCent = F,
-    cull = 0.382, percentile = 0.5, noiselvl = NULL
+    cull = 0.382, percentile = 0.5, noiselvl = NULL,
+    seed = NULL
   ) {
 
+  # Set seed for reproducibility if provided
+  if (!is.null(seed)) {
+    set.seed(seed)
+  }
 
   if (!is.numeric(X)) {
-    stop("The input matrix X is not numeric.")
+    stop(paste("The input data block", matName, "is not a numeric matrix."))
   }
   if (any(is.na(X))) {
     stop("The input matrix X contains NA values.")

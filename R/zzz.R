@@ -4,7 +4,7 @@
   # Check CVXR version upon package load
   if (requireNamespace("CVXR", quietly = TRUE)) {
     required_version <- "0.99.7"
-    loaded_version <- as.character(packageVersion("CVXR")) # Ensure string comparison
+    loaded_version <- as.character(utils::packageVersion("CVXR")) # Ensure string comparison
 
     if (loaded_version != required_version) {
       packageStartupMessage(paste0(
