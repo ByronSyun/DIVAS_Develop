@@ -12,19 +12,14 @@ Description: Based on 'Data integration via analysis of subspaces (DIVAS)' by Pr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends:
-    CVXR (>= 0.99-7)
 Imports: 
+    CVXR,
     RSpectra,
     methods,
     ggplot2,
     matrixStats,
     abind,
     R.matlab,
-    qs,
-    dplyr,
-    tidyr,
-    gridExtra,
     R.utils
 Suggests: 
     testthat (>= 3.0.0),

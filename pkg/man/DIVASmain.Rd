@@ -10,7 +10,8 @@ DIVASmain(
   iprint = TRUE,
   colCent = FALSE,
   rowCent = FALSE,
-  figdir = NULL
+  figdir = NULL,
+  seed = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ DIVASmain(
 \item{rowCent}{Whether to row centre the input data blocks.}
 
 \item{figdir}{If not NULL, then diagnostic plots will be saved to this directory.}
+
+\item{seed}{Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.}
 }
 \value{
 A list containing DIVAS integration results. Most important ones include

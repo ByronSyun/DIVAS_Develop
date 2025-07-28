@@ -12,7 +12,8 @@ MatSignalExtractJP(
   rowCent = F,
   cull = 0.382,
   percentile = 0.5,
-  noiselvl = NULL
+  noiselvl = NULL,
+  seed = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ MatSignalExtractJP(
 \item{percentile}{A numeric value representing the percentile for estimating the noise level.}
 
 \item{noiselvl}{Optional. A noise level parameter that can be either a numeric value or 'ks' to use the `ksOpt` function for noise level estimation. If not provided, an optimal shrinkage method will be used.}
+
+\item{seed}{Optional. A seed for the random number generator to ensure reproducibility.}
 }
 \value{
 A list containing:

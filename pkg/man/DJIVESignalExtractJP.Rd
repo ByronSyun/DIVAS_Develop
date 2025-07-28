@@ -12,7 +12,8 @@ DJIVESignalExtractJP(
   rowCent = F,
   cull = 0.382,
   noisepercentile = rep(0.5, length(datablock)),
-  noiselvls = NULL
+  noiselvls = NULL,
+  seed = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ DJIVESignalExtractJP(
 \item{noisepercentile}{A numeric vector specifying the percentiles used for noise estimation for each data block.}
 
 \item{noiselvls}{A list specifying noise levels for each data block; if NULL, noise levels are estimated internally.}
+
+\item{seed}{Optional. An integer to set the seed for the random number generator. Default is `NULL`.}
 }
 \value{
 A list containing:

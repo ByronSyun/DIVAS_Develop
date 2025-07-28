@@ -1,5 +1,7 @@
-^.*\.Rproj$
-^\.Rproj\.user$
-^LICENSE\.md$
-^doc$
-^Meta$
+# Ignore pkgdown files
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+
+# Ignore logo file
+^DIVAS_logo\.png$
