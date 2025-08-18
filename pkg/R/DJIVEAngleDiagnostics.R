@@ -112,12 +112,13 @@ DJIVEAngleDiagnosticJP <- function(
   sspCols <- array(0, dim = c(1, 2^nb - 1, 3))
   numJ <- numeric(2^nb - 1)
   sizeCols <- matrix(c(
-    0, 1, 0,  # 3-Way blue
-    1, 0, 0,  # 2-Way red
-    0.4, 0.4, 1,  # other color
-    0.5, 0.5, 0.5,  # grey
-    1, 0, 1
-  ), nrow = 5, byrow = TRUE)
+    0, 1, 0,      # 1-Way green (Adjusted comment)
+    1, 0, 0,      # 2-Way red
+    0, 0, 1,      # 3-Way blue (Adjusted comment and color)
+    0.5, 0.5, 0.5,  # 4-Way grey
+    1, 0, 1,      # 5-Way magenta
+    0.5, 0, 0.5   # 6-Way purple (NEW)
+  ), nrow = 6, byrow = TRUE)
 
   for (k in seq_len(2^nb - 1)) {
     key <- as.character(k)
