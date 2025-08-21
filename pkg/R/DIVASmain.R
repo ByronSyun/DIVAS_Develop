@@ -48,6 +48,23 @@ DIVASmain <- function(
     dataname <- paste0("Datablock", 1:nb)
   }
 
+  if (any(sapply(datablock, function(i) {
+    !is.matrix(i)
+  }))) {
+    stop("datablock must be a list of matrices")
+  }
+
+  n <- ncol(datablock[[1]]) # Get number of samples
+
+  # ---- Extract sample IDs from column names ----
+  # Assumes all data blocks have the same samples in the same order
+  sample_ids <- colnames(datablock[[1]])
+
+  # ---- process dataname ----
+  if (is.null(dataname)) {
+    dataname <- names(datablock)
+  }
+
   # Some tuning parameters for algorithms
   theta0 <- 45
   optArgin <- list(0.5, 1000, 1.05, 50, 1e-3, 1e-3)
@@ -117,6 +134,31 @@ DIVASmain <- function(
   
   names(keymapname) <- names(outstruct$keyIdxMap)
   outstruct$keymapname <- keymapname
+
+  # ---- Attach sample IDs to results ----
+  if (!is.null(sample_ids)) {
+    if (iprint) {
+      cat("Attaching sample IDs to score matrices (jointBasisMap and indivBasisMap)...\\n")
+    }
+    # For joint structures
+    if (length(outstruct$jointBasisMap) > 0) {
+      outstruct$jointBasisMap <- lapply(outstruct$jointBasisMap, function(mat) {
+        if (!is.null(mat)) rownames(mat) <- sample_ids
+        return(mat)
+      })
+    }
+    # For individual structures
+    if (length(outstruct$indivBasisMap) > 0) {
+      outstruct$indivBasisMap <- lapply(outstruct$indivBasisMap, function(mat) {
+        if (!is.null(mat)) rownames(mat) <- sample_ids
+        return(mat)
+      })
+    }
+  }
+
+  if (iprint) {
+    cat("DIVAS is complete.\\n")
+  }
 
   return(outstruct)
 }
