@@ -16,6 +16,7 @@
 #'     \item{matBlocks}{List of scores representing shared and partially shared joint structures.}
 #'     \item{matLoadings}{List of loadings linking features in each data block with scores.}
 #'     \item{keyIdxMap}{Mapping between indices of the previous lists and data blocks.}
+#'     \item{sampleScoreMatrix}{A comprehensive matrix with samples as rows and all component scores as columns. Column names follow the pattern "X-Way-Y" for joint structures (e.g., "6-Way-1", "5-Way-2") and "BlockName-Individual-Y" for individual structures.}
 #'   }
 #'   See Details for more explanations.
 #'
@@ -63,6 +64,10 @@ DIVASmain <- function(
   # ---- process dataname ----
   if (is.null(dataname)) {
     dataname <- names(datablock)
+    if (is.null(dataname)) {
+      # Generate default names if still NULL
+      dataname <- paste0("Block", 1:nb)
+    }
   }
 
   # Some tuning parameters for algorithms
@@ -153,6 +158,128 @@ DIVASmain <- function(
         if (!is.null(mat)) rownames(mat) <- sample_ids
         return(mat)
       })
+    }
+  }
+
+  # ---- Create comprehensive sample-score matrix ----
+  if (iprint) {
+    cat("Creating comprehensive sample-score matrix...\\n")
+  }
+  
+  # Initialize list to store all score columns
+  score_columns <- list()
+  column_names <- c()
+  
+  # Process joint structures (sorted by number of blocks, descending)
+  if (length(outstruct$jointBasisMap) > 0) {
+    # Get joint structure information
+    joint_info <- data.frame(
+      id = names(outstruct$jointBasisMap),
+      stringsAsFactors = FALSE
+    )
+    
+    # Calculate number of blocks for each joint structure
+    joint_info$num_blocks <- sapply(joint_info$id, function(id) {
+      length(outstruct$keyIdxMap[[id]])
+    })
+    
+    # Sort by number of blocks (descending) then by id
+    joint_info <- joint_info[order(-joint_info$num_blocks, joint_info$id), ]
+    
+    # Process each joint structure
+    for (i in 1:nrow(joint_info)) {
+      id <- joint_info$id[i]
+      num_blocks <- joint_info$num_blocks[i]
+      mat <- outstruct$jointBasisMap[[id]]
+      
+      if (!is.null(mat) && ncol(mat) > 0) {
+        # Determine if this is a true joint structure (>1 block) or individual structure
+        if (num_blocks > 1) {
+          # True joint structure: use actual block names like "RNA+PRO+MIC-1", "RNA+PRO-1", etc.
+          block_indices <- outstruct$keyIdxMap[[id]]
+          block_names <- dataname[block_indices]
+          joint_name <- paste(block_names, collapse = "+")
+          
+          for (rank_idx in 1:ncol(mat)) {
+            col_name <- paste0(joint_name, "-", rank_idx)
+            column_names <- c(column_names, col_name)
+            score_columns[[col_name]] <- mat[, rank_idx]
+          }
+        } else {
+          # Individual structure stored in jointBasisMap: "RNA-Individual-1", etc.
+          block_idx <- outstruct$keyIdxMap[[id]][1]
+          block_name <- dataname[block_idx]
+          
+          for (rank_idx in 1:ncol(mat)) {
+            col_name <- paste0(block_name, "-Individual-", rank_idx)
+            column_names <- c(column_names, col_name)
+            score_columns[[col_name]] <- mat[, rank_idx]
+          }
+        }
+      }
+    }
+  }
+  
+  # Process individual structures (if they exist separately)
+  if (length(outstruct$indivBasisMap) > 0) {
+    for (id in names(outstruct$indivBasisMap)) {
+      mat <- outstruct$indivBasisMap[[id]]
+      
+      if (!is.null(mat) && ncol(mat) > 0) {
+        # Get block name for individual structure
+        block_idx <- outstruct$keyIdxMap[[id]][1]  # Individual structures have only one block
+        block_name <- dataname[block_idx]
+        
+        # Create column names like "RNA-Individual-1", "PRO-Individual-2", etc.
+        for (rank_idx in 1:ncol(mat)) {
+          col_name <- paste0(block_name, "-Individual-", rank_idx)
+          column_names <- c(column_names, col_name)
+          score_columns[[col_name]] <- mat[, rank_idx]
+        }
+      }
+    }
+  }
+  
+  # Create the comprehensive matrix
+  if (length(score_columns) > 0) {
+    # Combine all score columns into a matrix
+    sample_score_matrix <- do.call(cbind, score_columns)
+    
+    # Debug information
+    if (iprint) {
+      cat("Debug: score_columns length:", length(score_columns), "\\n")
+      cat("Debug: column_names length:", length(column_names), "\\n")
+      cat("Debug: matrix dimensions:", dim(sample_score_matrix), "\\n")
+    }
+    
+    # Ensure column names match matrix dimensions
+    if (ncol(sample_score_matrix) == length(column_names)) {
+      colnames(sample_score_matrix) <- column_names
+    } else {
+      if (iprint) {
+        cat("Warning: Column names length (", length(column_names), 
+            ") does not match matrix columns (", ncol(sample_score_matrix), ")\\n")
+      }
+      # Generate generic column names if there's a mismatch
+      colnames(sample_score_matrix) <- paste0("Component_", 1:ncol(sample_score_matrix))
+    }
+    
+    # Set row names to sample IDs if available
+    if (!is.null(sample_ids)) {
+      rownames(sample_score_matrix) <- sample_ids
+    }
+    
+    # Add to output structure
+    outstruct$sampleScoreMatrix <- sample_score_matrix
+    
+    if (iprint) {
+      cat("Sample-score matrix created with dimensions:", dim(sample_score_matrix), "\\n")
+      cat("Columns:", paste(colnames(sample_score_matrix), collapse = ", "), "\\n")
+    }
+  } else {
+    outstruct$sampleScoreMatrix <- NULL
+    if (iprint) {
+      cat("No score matrices found to create sample-score matrix.\\n")
     }
   }
 
