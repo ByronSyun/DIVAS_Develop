@@ -40,9 +40,9 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Install CVXR latest version
+      - name: Install CVXR specific version
         run: |
-          install.packages("CVXR", repos = "https://cloud.r-project.org")
+          remotes::install_version("CVXR", version = "0.99-7", repos = "http://cran.us.r-project.org")
         shell: Rscript {0}
         
       - name: Build site
