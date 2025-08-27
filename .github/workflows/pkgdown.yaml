@@ -34,15 +34,24 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglpk-dev
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           working-directory: ./pkg
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::CVXR, local::.
           needs: website
-
-      - name: Install CVXR latest version
+          
+      - name: Verify CVXR installation
         run: |
-          install.packages("CVXR", repos = "https://cloud.r-project.org")
+          if (!requireNamespace("CVXR", quietly = TRUE)) {
+            install.packages("CVXR", repos = "https://cloud.r-project.org")
+          }
+          library(CVXR)
+          cat("CVXR version:", packageVersion("CVXR"), "\n")
         shell: Rscript {0}
         
       - name: Build site
