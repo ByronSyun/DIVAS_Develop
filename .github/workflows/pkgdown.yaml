@@ -51,7 +51,7 @@ jobs:
             install.packages("CVXR", repos = "https://cloud.r-project.org")
           }
           library(CVXR)
-          cat("CVXR version:", packageVersion("CVXR"), "\n")
+          cat("CVXR version:", as.character(packageVersion("CVXR")), "\n")
         shell: Rscript {0}
         
       - name: Build site
