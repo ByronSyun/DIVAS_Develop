@@ -1,0 +1,107 @@
+* using log directory ‘/Users/byronsun/Desktop/DIVAS-code/DIVAS_Develop/pkg/..Rcheck’
+* using R version 4.4.2 (2024-10-31)
+* using platform: aarch64-apple-darwin20
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS Sequoia 15.5
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘./DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘DIVAS’ version ‘0.1.1’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... [3s/28s] NOTE
+Maintainer: ‘Jiadong Mao <chiatungmao@gmail.com>’
+
+New submission
+
+Package has a VignetteBuilder field but no prebuilt vignette index.
+
+Found the following (possibly) invalid URLs:
+  URL: https://github.com/ByronSyun/DIVAS_COVID19_Analysis
+    From: README.md
+    Status: 404
+    Message: Not Found
+
+The build time stamp is missing.
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .gitignore
+  ..Rcheck
+  .github
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+
+CRAN-pack does not know about
+  ..Rcheck
+  .github
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘DIVAS’ can be installed ... OK
+* checking installed package size ... NOTE
+  installed size is 31.6Mb
+  sub-directories of 1Mb or more:
+    extdata  31.2Mb
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Checking should be performed on sources prepared by ‘R CMD build’.
+* checking top-level files ... NOTE
+Non-standard files/directories found at top level:
+  ‘DIVAS.Rproj’ ‘DIVAS_logo.png’ ‘LICENSE.md’ ‘Meta’ ‘_pkgdown.yml’
+  ‘doc’ ‘docs’ ‘pkgdown’
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory with the name of a check directory:
+  ./..Rcheck
+Most likely, these were included erroneously.
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking files in ‘vignettes’ ... WARNING
+Files in the 'vignettes' directory but no files in 'inst/doc':
+  ‘DIVAS_GNP_Dataset_Example.Rmd’ ‘DIVAS_Toy_Dataset_Example.Rmd’
+  ‘DIVAS_User_Guide.Rmd’ ‘articles/index.md’ ‘contributing.Rmd’
+  ‘developers.Rmd’ ‘figures/placeholder.txt’
+* checking examples ... NONE
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... WARNING
+Directory 'inst/doc' does not exist.
+Package vignettes without corresponding single PDF/HTML:
+  ‘DIVAS_GNP_Dataset_Example.Rmd’
+  ‘DIVAS_Toy_Dataset_Example.Rmd’
+  ‘DIVAS_User_Guide.Rmd’
+  ‘contributing.Rmd’
+  ‘developers.Rmd’
+* checking re-building of vignette outputs ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 3 WARNINGs, 5 NOTEs

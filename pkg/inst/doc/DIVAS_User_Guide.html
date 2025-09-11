@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Yinuo Sun" />
+
+<meta name="date" content="2025-09-11" />
+
+<title>DIVAS User Guide: Analysing the Toy Dataset</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">DIVAS User Guide: Analysing the Toy
+Dataset</h1>
+<h4 class="author">Yinuo Sun</h4>
+<h4 class="date">2025-09-11</h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This guide demonstrates how to use the <code>DIVAS</code> R package
+to perform data integration on a provided toy dataset. DIVAS (Data
+Integration via Analysis of Subspaces) identifies joint and individual
+variation patterns across multiple data blocks (modalities).</p>
+<p>First, ensure you have the <code>DIVAS</code> package and its
+dependencies installed. See the main <code>README.md</code> for
+installation instructions, especially regarding the required
+<code>CVXR</code> version (0.99-7).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># install if not have</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Install DIVAS package from GitHub</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;ByronSyun/DIVAS_Develop&quot;, ref = &quot;DIVAS-v1&quot;)</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Or install from local folder</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># devtools::load_all(&quot;DIVAS-main&quot;)</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Install the specified version of CVXR</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># devtools::install_version(&quot;CVXR&quot;, version = &quot;0.99-7&quot;, repos = &quot;http://cran.us.r-project.org&quot;)</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># For pkgdown, libraries are generally not needed here if the package is loaded,</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># # library(R.matlab)</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co"># # library(qs)</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co"># # library(DIVAS)</span></span></code></pre></div>
+</div>
+<div id="the-toy-dataset-toydatathreeway.mat" class="section level2">
+<h2>The Toy Dataset (<code>toyDataThreeWay.mat</code>)</h2>
+<p>The toy dataset (<code>toyDataThreeWay.mat</code>) is used to test
+DIVAS by the original author. It’s stored in MATLAB format.</p>
+<p>This dataset contains a variable named <code>datablock</code>, which
+is a MATLAB cell array with dimensions 1×3. Inside R, after loading with
+<code>readMat()</code>, it becomes a nested list structure with three
+elements, each containing a data matrix. It also includes a
+<code>dataname</code> variable that provides labels (“X1”, “X2”, “X3”)
+for these data blocks.</p>
+<p>The three data matrices have the following dimensions: - Block 1
+(X1): 200 × 400 matrix - Block 2 (X2): 400 × 400 matrix - Block 3 (X3):
+10000 × 400 matrix</p>
+<p>These matrices share a common dimension (400 columns), representing
+400 samples measured using three different modalities, where each
+modality captures a different number of features (200, 400, and 10000
+respectively). This structure is typical in multi-modal data integration
+scenarios, where the same samples are profiled using different
+measurement techniques.</p>
+<p>Let’s load the data:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># library(R.matlab)</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># library(qs)</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># Assuming &#39;toyDataThreeWay.mat&#39; is in your working directory or provide the full path</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># data &lt;- readMat(&#39;toyDataThreeWay.mat&#39;) </span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># str(data$datablock)</span></span></code></pre></div>
+<p>The <code>datablock</code> object loaded from the <code>.mat</code>
+file needs to be converted into a simple list of matrices, where each
+element of the list is one data block (matrix).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># datablock_list &lt;- list(</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#   Block1 = data$datablock[1,1][[1]][[1]],</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#   Block2 = data$datablock[1,2][[1]][[1]],</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#   Block3 = data$datablock[1,3][[1]][[1]]</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># print(paste(&quot;Block 1 dimensions:&quot;, dim(datablock_list[[1]])))</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># print(paste(&quot;Block 2 dimensions:&quot;, dim(datablock_list[[2]])))</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co"># print(paste(&quot;Block 3 dimensions:&quot;, dim(datablock_list[[3]])))</span></span></code></pre></div>
+<p>Now, <code>datablock_list</code> is ready for DIVAS analysis. It
+contains three matrices.</p>
+</div>
+<div id="running-divas-analysis" class="section level2">
+<h2>Running DIVAS Analysis</h2>
+<p>The core function is <code>DIVASmain</code>. We pass our prepared
+list of data blocks to it.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Run the main DIVAS function</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># Use default parameters for this example</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># divas_results &lt;- DIVASmain(datablock_list)</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co"># # The result is a list containing various outputs</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co"># names(divas_results)</span></span></code></pre></div>
+</div>
+<div id="divas-analysis-process-and-results-interpretation" class="section level2">
+<h2>DIVAS Analysis Process and Results Interpretation</h2>
+<p>The DIVAS analysis performed by <code>DIVASmain()</code> consists of
+three main steps:</p>
+<div id="step-1-signal-extraction" class="section level3">
+<h3>Step 1: Signal Extraction</h3>
+<p>The first step extracts the signal component from each data block by
+separating it from noise. When you run <code>DIVASmain()</code>, you’ll
+see output similar to:</p>
+<pre><code>Signal estimation for X1
+Datablock dimensions: 200 features; 400 samples 
+estimated noise = 19.96 
+Initial signal rank for X1 is 3.
+Progress Through Bootstrapped Matrices:
+...
+Culled Rank is 3.
+Perturbation Angle for X1 is 11.8.</code></pre>
+<p>For each data block, this step:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Estimates the noise level</strong> using random matrix
+theory</li>
+<li><strong>Determines an initial signal rank</strong> based on singular
+values above the noise threshold</li>
+<li><strong>Refines the rank through bootstrapping</strong> (sampling
+with replacement)</li>
+<li><strong>Calculates a perturbation angle</strong>, which indicates
+how stable the extracted signal subspace is</li>
+</ol>
+<p>In our toy example, all three data blocks have: - <strong>Culled Rank
+= 3</strong>: The algorithm detected three significant components in
+each data block - <strong>Perturbation Angles</strong> (11.8, 8.6, and
+2.8 for X1, X2, and X3): These values indicate the stability of the
+extracted signals. Smaller angles suggest more stable signals,
+explaining why X3 (with 10,000 features) has the most stable signal
+extraction.</p>
+<p>The output from this step, the signal matrices, becomes the input for
+the joint structure identification step.</p>
+</div>
+<div id="step-2-joint-structure-identification" class="section level3">
+<h3>Step 2: Joint Structure Identification</h3>
+<p>The second step identifies joint and individual structure components
+across the data blocks. DIVAS uses convex optimization to find subspaces
+that are shared between different combinations of data blocks, as well
+as subspaces that are unique to individual blocks.</p>
+<p>This step is computationally intensive as it involves solving a
+penalized optimization problem. When running, you’ll see output similar
+to:</p>
+<pre><code>Joint structure estimation for block: 1, 2, 3
+Solving for structures with key: 1
+Solving for structures with key: 2
+Solving for structures with key: 3
+Solving for structures with key: 4
+...
+Solving for structures with key: 7
+Joint structure estimate for 1, 2, 3 complete.</code></pre>
+<p>During this step, the algorithm performs iterative convex
+optimization to identify joint and individual structures. For each
+structure key, you’ll see output like:</p>
+<pre><code>Find joint structure shared only among X1, X2, X3.
+Search Direction 1:
+2 0.903132 0.953589 1.004182 2.990696 0.995363 -1000005.482454
+3 0.796711 0.845383 0.894077 2.767596 0.885542 0.162749
+4 0.701401 0.748269 0.795147 2.561086 0.786920 0.154449
+...
+Iteration 10
+10 0.307495 0.345173 0.382800 1.602823 0.376174 0.111738
+...
+Iteration 20
+20 0.041978 0.069198 0.096336 0.696604 0.091532 0.060549
+...</code></pre>
+<p>This output represents the optimization progress where: -
+<strong>Column 1</strong>: Iteration number - <strong>Columns
+2-4</strong>: Slack variables for each data block (X1, X2, X3), which
+measure constraint violations for each block - <strong>Column
+5</strong>: Sum of the slack variables, representing total constraint
+violation - <strong>Column 6</strong>: Represents the norm constraint
+slack variable (ensuring the solution vector has unit norm) -
+<strong>Column 7</strong>: Objective function change between successive
+iterations (decrease in objective value, first one as negative
+infinity).</p>
+<p>The algorithm is using a penalty method with slack variables to solve
+a constrained optimization problem. As the iterations progress, you
+should observe: 1. Decreasing slack values (columns 2-5), indicating
+constraints are being better satisfied 2. Smaller changes in the
+objective function (column 7), indicating convergence.</p>
+<p>The optimization stops when both the change in objective value and
+the sum of slack variables fall below specified thresholds, indicating
+that a stable solution has been found.</p>
+<p>Additionally, you’ll notice the algorithm searches for multiple
+directions within each structure:</p>
+<pre><code>Search Direction 1:
+...
+Direction 1 converges.
+There is room for searching next direction. Continue...
+
+Search Direction 2:
+...
+Direction 2 does not converge. Stop searching current joint block.
+
+Find joint structure shared only among X1, X2.
+Search Direction 1:
+...</code></pre>
+<p>This sequence shows how DIVAS finds the basis vectors for each
+structure:</p>
+<ol style="list-style-type: decimal">
+<li><p>For each joint structure (e.g., “structure shared among X1, X2,
+X3”), the algorithm searches for orthogonal directions
+sequentially.</p></li>
+<li><p>Each “Search Direction” represents an attempt to find one basis
+vector of the subspace corresponding to a particular structure.</p></li>
+<li><p>When a direction converges successfully (e.g., “Direction 1
+converges”), the algorithm checks if additional dimensions might exist
+for this structure and proceeds to search for another
+direction.</p></li>
+<li><p>When a direction fails to converge (e.g., “Direction 2 does not
+converge”), the algorithm concludes that it has found all significant
+dimensions for the current structure and moves on to the next structure
+type.</p></li>
+<li><p>The process continues until all possible structures have been
+examined (individual structures for each block and all possible
+combinations of joint structures).</p></li>
+</ol>
+<p>At the end of the joint structure identification step, DIVAS
+summarizes the results like this:</p>
+<pre><code>Direction 1 converges.
+There is no room for searching next direction. Stop searching current joint block.
+There is no room for the next joint block. Stop searching.
+The rank of joint block among X1, X2, X3: 1
+The rank of joint block among X1, X2: 1
+The rank of joint block among X1, X3: 1
+The rank of joint block among X2, X3: 1
+Starting binary code 1</code></pre>
+<p>This summary shows the rank (number of dimensions) found for each
+joint structure. In this example, DIVAS identified: - 1 dimension shared
+among all three data blocks (X1, X2, X3) - 1 dimension shared between
+each pair of data blocks (X1-X2, X1-X3, X2-X3)</p>
+</div>
+<div id="step-3-structure-reconstruction" class="section level3">
+<h3>Step 3: Structure Reconstruction</h3>
+<p>In the final step, DIVAS reconstructs the estimated individual and
+joint structures for each data block. This reconstruction provides a
+decomposition of the original signal into its joint and individual
+components.</p>
+<p>The algorithm outputs (More explanations are summarized together in
+the next Section):</p>
+<pre><code>$jointBasisMap
+$matLoadings
+$matBlocks
+$keyIdxMap</code></pre>
+</div>
+</div>
+<div id="interpreting-the-visualization-results" class="section level2">
+<h2>Interpreting the Visualization Results</h2>
+<p>The DIVAS analysis generates two main diagnostic plots that provide
+critical insights into the identified structures:</p>
+<div id="joint-structure-loadings-diagnostics" class="section level3">
+<h3>1. Joint Structure Loadings Diagnostics</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># These plots are generated by the DJIVEAngleDiagnosticJP function</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># plots &lt;- DJIVEAngleDiagnosticJP(datablock_list, dataname, divas_results, </span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#                               randseed = 566, titlestr = &quot;Demo&quot;)</span></span></code></pre></div>
+<p>This plot shows:</p>
+<ul>
+<li><strong>Rows</strong>: Each data block (DataBlock_1, DataBlock_2,
+DataBlock_3)</li>
+<li><strong>Columns</strong>: Different structure types (3-Way = shared
+by all three blocks, 2-Way = pairwise joint structures, 1-Way =
+individual structures)</li>
+<li><strong>Numbers in cells</strong>: The rank (dimensionality) of each
+structure type for each data block</li>
+<li><strong>Colors</strong>: Blue for 3-Way joint structures, Red for
+2-Way joint structures, Gray for individual structures</li>
+<li><strong>Angles</strong>: Values like “78.4”, “8.6” represent
+perturbation angles, with smaller angles indicating more stable
+structures</li>
+<li><strong>Bottom row</strong>: Shows the effective contribution of
+each structure type to the overall signal</li>
+</ul>
+<p>In the example plot: - Each data block has a 1-dimensional structure
+shared with all blocks (the “3-Way” column) - Each data block
+participates in 1-dimensional pairwise joint structures (the “2-Way”
+columns) - None of the blocks show individual structures (zeros in the
+“1-Way” column) - The perturbation angles vary across blocks, with
+DataBlock_3 showing the most stable joint structure (smallest angle of
+2.8°)</p>
+</div>
+<div id="joint-structure-score-diagnostics" class="section level3">
+<h3>2. Joint Structure Score Diagnostics</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># print(plots$score)</span></span></code></pre></div>
+<p>This plot is similar to the loadings plot but focuses on the sample
+space (scores) rather than the feature space (loadings). It shows:</p>
+<ul>
+<li>How the joint and individual structures manifest in the sample
+dimensions</li>
+<li>Principal angles (like “82”, “11.8”) between the identified
+structures and random subspaces</li>
+<li>The bottom row shows the “Effective Number of Cases” that contribute
+to each structure</li>
+</ul>
+<p>Smaller angles in both plots indicate that the identified structures
+are statistically significant and distinct from random variation.</p>
+<p>These visualizations provide a comprehensive view of how information
+is shared across data blocks, helping researchers identify which
+structures are most important and reliable for interpretation.</p>
+<p>Let’s examine the key components of the <code>divas_results</code>
+object in detail:</p>
+</div>
+<div id="joint-basis-map" class="section level3">
+<h3>Joint Basis Map</h3>
+<p>The <code>jointBasisMap</code> is a list containing the estimated
+basis vectors (scores) for each identified structure:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># names(divas_results$jointBasisMap)</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co"># dim(divas_results$jointBasisMap[[&quot;7&quot;]])</span></span></code></pre></div>
+</div>
+<div id="matrix-loadings" class="section level3">
+<h3>Matrix Loadings</h3>
+<p>The <code>matLoadings</code> component provides the corresponding
+loadings for each structure:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># str(divas_results$matLoadings, max.level = 2)</span></span></code></pre></div>
+<p>This nested list structure contains loadings for each block and each
+structure. The loadings show how the joint and individual patterns are
+expressed in the original feature space of each data block.</p>
+</div>
+</div>
+<div id="example-2-using-the-gnp-dataset" class="section level2">
+<h2>Example 2: Using the GNP Dataset</h2>
+<p>In addition to the toy dataset, we can also demonstrate how to use
+DIVAS with a different type of data format. The following example uses a
+dataset stored in <code>qs</code> format.</p>
+<div id="about-the-gnp-dataset" class="section level3">
+<h3>About the GNP Dataset</h3>
+<p>The <code>gnp_imputed.qs</code> dataset contains multi-omics data
+organized in a list structure. When loaded, it provides:</p>
+<ol style="list-style-type: decimal">
+<li><code>gnp$datablock</code>: A list of three named data matrices:
+<ul>
+<li><code>RNA</code>: Gene expression data (8432 genes × 18
+samples)</li>
+<li><code>PRO</code>: Protein expression data (3156 proteins × 18
+samples)</li>
+<li><code>MIC</code>: MicroRNA expression data (283 miRNAs × 18
+samples)</li>
+</ul></li>
+<li><code>gnp$metaData</code>: A data frame with 18 rows (samples) and 8
+columns of metadata, including information about sample stage, donor,
+sex, and age.</li>
+</ol>
+<p>All three data matrices share the same samples (18 columns with
+identical sample IDs), making this a perfect example for multi-modal
+data integration with DIVAS. Each data type (RNA, protein, miRNA)
+represents a different “view” of the same biological samples.</p>
+<p>To run this example, you’ll need the <code>qs</code> package:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># install.packages(&quot;qs&quot;)</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># library(qs)</span></span></code></pre></div>
+</div>
+<div id="loading-and-analyzing-the-gnp-dataset" class="section level3">
+<h3>Loading and Analyzing the GNP Dataset</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># gnp &lt;- qread(&quot;gnp_imputed.qs&quot;)</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co"># datablock &lt;- gnp$datablock</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co"># divasRes &lt;- DIVASmain(datablock, nsim = 400, colCent = TRUE)</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co"># # Create names for the data blocks</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co"># dataname &lt;- paste0(&quot;DataBlock_&quot;, 1:length(datablock))</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co"># plots &lt;- DJIVEAngleDiagnosticJP(datablock, dataname, divasRes, 566, &quot;GNP Demo&quot;)</span></span></code></pre></div>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ol style="list-style-type: decimal">
+<li><p>Prothero, J., …, Marron J. S. (2024). Data integration via
+analysis of subspaces (DIVAS).</p></li>
+<li><p>DIVAS R package. <a href="https://github.com/jiadongm/DIVAS" class="uri">https://github.com/jiadongm/DIVAS</a>.</p></li>
+<li><p>Klein, C., Hesse, S., Mao, J., Hadziahmetovic, A., et al. (2025).
+A molecular atlas of human granulopoiesis. <a href="https://www.researchsquare.com/article/rs-6184761/v1" class="uri">https://www.researchsquare.com/article/rs-6184761/v1</a></p></li>
+<li><p>GNP dataset provided by the <a href="https://www.ccrc-hauner.de/mission/509ecab365bf4e16">Comprehensive
+Childhood Research Center</a><br />
+at the <a href="https://www.lmu-klinikum.de/hauner/kinder-und-kinderpoliklinik">Dr. von
+Hauner Children’s Hospital</a> (<a href="https://www.ccrc-hauner.de/research-labs/klein-lab/939888339a9fcb00">Klein
+Lab</a>). <a href="https://granulopoiesis.com/" class="uri">https://granulopoiesis.com/</a></p></li>
+</ol>
+<p>For more detailed technical information about the DIVAS method,
+please refer to the primary publication (1). For details on the R
+package implementation, please visit the GitHub repository (DIVAS-v1
+branch for now) (2). The GNP dataset used in Example 2 is from the human
+granulopoiesis atlas project (3,4).</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

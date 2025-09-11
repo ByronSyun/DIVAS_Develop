@@ -33,3 +33,4 @@ Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 URL: https://github.com/ByronSyun/DIVAS_Develop, https://byronsyun.github.io/DIVAS_Develop/
 BugReports: https://github.com/ByronSyun/DIVAS_Develop/issues
+VignetteBuilder: knitr

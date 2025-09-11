@@ -1,0 +1,27 @@
+DIVASmain               Data integration via analysis of subspaces
+DJIVEAngleDiagnosticJP
+                        Create Diagnostic Plots for DJIVE Analysis
+DJIVEJointStrucEstimateJP
+                        Estimate full and partially shared joint
+                        structures Establish a DC programming problem
+                        to estimate each partially joint structure
+                        using Penalty CCP algorithm.
+DJIVEReconstructMJ      DJIVEReconstructMJ - Reconstruct joint blocks
+                        from data blocks
+DJIVESignalExtractJP    Signal Matrix Extraction for DIVAS
+MatCenterJP             Center a Matrix by Rows, Columns, or Both
+MatReconstructMJ        MatReconstructMJ - Reconstruct joint block
+                        matrices and their loadings from data
+MatSignalExtractJP      Matrix Signal Extraction
+MedianMarcenkoPastur    Calculate the Median of the Marčenko-Pastur
+                        Distribution
+PercentileMarcenkoPastur
+                        Percentile of the Marcenko-Pastur Distribution
+acosd                   Arccosine in Degrees
+incMarPas               Incomplete Marčenko-Pastur Distribution
+                        Function
+ksOpt                   Optimal Shrinkage Estimation using
+                        Kolmogorov-Smirnov Criterion
+optimal_shrinkage       Optimal Shrinkage of Singular Values
+optshrink_impl          Optimal Shrinkage of Singular Values
+randDirAngleMJ          Calculate Random Direction Angles
