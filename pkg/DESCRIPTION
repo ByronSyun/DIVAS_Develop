@@ -1,7 +1,7 @@
 Package: DIVAS
 Type: Package
 Title: Data Integration via Analysis of Subspaces
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
   person("Jiadong", "Mao", , "chiatungmao@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3818-1981")),
   person("Yinuo", "Sun", , "byronsunyinuoo@gmail.com", role = "aut"))

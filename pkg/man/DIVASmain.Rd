@@ -11,7 +11,8 @@ DIVASmain(
   colCent = FALSE,
   rowCent = FALSE,
   figdir = NULL,
-  seed = NULL
+  seed = NULL,
+  ReturnDetail = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ DIVASmain(
 \item{figdir}{If not NULL, then diagnostic plots will be saved to this directory.}
 
 \item{seed}{Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.}
+
+\item{ReturnDetail}{Logical. If FALSE (default), return a compact result list focusing on the most user-relevant elements to save storage space. If TRUE, return the full detailed result structure.}
 }
 \value{
 A list containing DIVAS integration results. Most important ones include
@@ -35,6 +38,11 @@ A list containing DIVAS integration results. Most important ones include
     \item{matBlocks}{List of scores representing shared and partially shared joint structures.}
     \item{matLoadings}{List of loadings linking features in each data block with scores.}
     \item{keyIdxMap}{Mapping between indices of the previous lists and data blocks.}
+    \item{sampleScoreMatrix}{A comprehensive matrix with samples as rows and all component scores as columns. Column names follow the pattern "X-Way-Y" for joint structures (e.g., "6-Way-1", "5-Way-2") and "BlockName-Individual-Y" for individual structures.}
+    \item{Loadings}{List of inverse loadings (generalized inverse of matLoadings) for each data block, providing better biological interpretability.}
+    \item{Scores}{List of recalculated scores computed as X^T * Loadings for each data block, offering an alternative to the original scores.}
+    \item{LoadingsNames}{A list of character vectors per data block, each listing available component names in Loadings[[block]].}
+    \item{names_vec}{Alias of LoadingsNames, per data block character vectors of component names (for convenience).}
   }
   See Details for more explanations.
 }
