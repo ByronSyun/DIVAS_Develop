@@ -10,8 +10,9 @@
 #' @param rowCent Whether to row centre the input data blocks.
 #' @param figdir If not NULL, then diagnostic plots will be saved to this directory.
 #' @param seed Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.
-#' @param ReturnDetail Logical. If FALSE (default), return a compact result list focusing on the most user-relevant elements to save storage space. If TRUE, return the full detailed result structure.
+#' @param ReturnDetail Logical. If FALSE (default), return a compact result list focusing on the most user-relevant elements to save storage space. If TRUE, return the full detailed result structure.                
 #'
+#' @importFrom MASS ginv
 #' @return A list containing DIVAS integration results. Most important ones include
 #'   \describe{
 #'     \item{matBlocks}{List of scores representing shared and partially shared joint structures.}
@@ -322,7 +323,7 @@ DIVASmain <- function(
     L_concatenated <- do.call(cbind, valid_loadings)
     
     # Step 3: Compute generalized inverse of concatenated loadings
-    L_concat_pinv_T <- t(MASS::ginv(L_concatenated))
+    L_concat_pinv_T <- t(ginv(L_concatenated))
     L_concat_pinv_T <- scale(L_concat_pinv_T, center = F, scale = colSums(L_concat_pinv_T^2)^(1/2))
     
     
@@ -351,13 +352,7 @@ DIVASmain <- function(
       cat("Processing block", block_idx, ":", dataname[block_idx], "...\\n")
     }
     
-    # Check if MASS is available
-    if (!requireNamespace("MASS", quietly = TRUE)) {
-      warning("MASS package is required for computing generalized inverse. Skipping inverse loadings computation.")
-      outstruct$Loadings[[block_idx]] <- NULL
-      outstruct$Scores[[block_idx]] <- NULL
-      next
-    }
+    # MASS is imported, so we can use it directly
     
     # Use computLoadings function
     tryCatch({

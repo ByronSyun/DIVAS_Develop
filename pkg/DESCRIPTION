@@ -2,6 +2,8 @@ Package: DIVAS
 Type: Package
 Title: Data Integration via Analysis of Subspaces
 Version: 0.1.1
+Author: Jiadong Mao [aut, cre] (<https://orcid.org/0000-0002-3818-1981>), Yinuo Sun [aut]
+Maintainer: Jiadong Mao <chiatungmao@gmail.com>
 Authors@R: c(
   person("Jiadong", "Mao", , "chiatungmao@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3818-1981")),
   person("Yinuo", "Sun", , "byronsunyinuoo@gmail.com", role = "aut"))
@@ -11,7 +13,6 @@ Description: Based on 'Data integration via analysis of subspaces (DIVAS)' by Pr
     from high-dimensional datasets, useful for multi-omics and other complex data types.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Imports: 
     CVXR,
     RSpectra,
@@ -19,16 +20,16 @@ Imports:
     ggplot2,
     matrixStats,
     abind,
-    R.matlab,
-    R.utils
+    MASS
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
     devtools,
-    pkgdown
+    pkgdown,
+    R.matlab,
+    R.utils
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 URL: https://github.com/ByronSyun/DIVAS_Develop, https://byronsyun.github.io/DIVAS_Develop/
 BugReports: https://github.com/ByronSyun/DIVAS_Develop/issues
-VignetteBuilder: knitr
