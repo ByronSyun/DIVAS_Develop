@@ -9,7 +9,7 @@ structure with diagnostic plots."><meta property="og:image" content="https://byr
 
     <a class="navbar-brand me-2" href="../index.html">DIVAS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,8 @@ structure with diagnostic plots.</p>
 <span>  colCent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  rowCent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  figdir <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  seed <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ReturnDetail <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -86,6 +87,10 @@ structure with diagnostic plots.</p>
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.</p></dd>
 
+
+<dt id="arg-returndetail">ReturnDetail<a class="anchor" aria-label="anchor" href="#arg-returndetail"></a></dt>
+<dd><p>Logical. If FALSE (default), return a compact result list focusing on the most user-relevant elements to save storage space. If TRUE, return the full detailed result structure.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -97,6 +102,21 @@ structure with diagnostic plots.</p>
 
     <dt>keyIdxMap</dt>
 <dd><p>Mapping between indices of the previous lists and data blocks.</p></dd>
+
+    <dt>sampleScoreMatrix</dt>
+<dd><p>A comprehensive matrix with samples as rows and all component scores as columns. Column names follow the pattern "X-Way-Y" for joint structures (e.g., "6-Way-1", "5-Way-2") and "BlockName-Individual-Y" for individual structures.</p></dd>
+
+    <dt>Loadings</dt>
+<dd><p>List of inverse loadings (generalized inverse of matLoadings) for each data block, providing better biological interpretability.</p></dd>
+
+    <dt>Scores</dt>
+<dd><p>List of recalculated scores computed as X^T * Loadings for each data block, offering an alternative to the original scores.</p></dd>
+
+    <dt>LoadingsNames</dt>
+<dd><p>A list of character vectors per data block, each listing available component names in Loadings[[block]].</p></dd>
+
+    <dt>names_vec</dt>
+<dd><p>Alias of LoadingsNames, per data block character vectors of component names (for convenience).</p></dd>
 
 
 </dl><p>See Details for more explanations.</p>
