@@ -10,6 +10,7 @@
 #' @param rowCent Whether to row centre the input data blocks.
 #' @param figdir If not NULL, then diagnostic plots will be saved to this directory.
 #' @param seed Optional. An integer to set the seed for the random number generator to ensure reproducibility of the bootstrap analysis. Default is `NULL`.
+#' @param ReturnDetail Logical. If FALSE (default), return a compact result list focusing on the most user-relevant elements to save storage space. If TRUE, return the full detailed result structure.
 #'
 #' @return A list containing DIVAS integration results. Most important ones include
 #'   \describe{
@@ -17,6 +18,10 @@
 #'     \item{matLoadings}{List of loadings linking features in each data block with scores.}
 #'     \item{keyIdxMap}{Mapping between indices of the previous lists and data blocks.}
 #'     \item{sampleScoreMatrix}{A comprehensive matrix with samples as rows and all component scores as columns. Column names follow the pattern "X-Way-Y" for joint structures (e.g., "6-Way-1", "5-Way-2") and "BlockName-Individual-Y" for individual structures.}
+#'     \item{Loadings}{List of inverse loadings (generalized inverse of matLoadings) for each data block, providing better biological interpretability.}
+#'     \item{Scores}{List of recalculated scores computed as X^T * Loadings for each data block, offering an alternative to the original scores.}
+#'     \item{LoadingsNames}{A list of character vectors per data block, each listing available component names in Loadings[[block]].}
+#'     \item{names_vec}{Alias of LoadingsNames, per data block character vectors of component names (for convenience).}
 #'   }
 #'   See Details for more explanations.
 #'
@@ -38,7 +43,7 @@
 #' @export
 DIVASmain <- function(
     datablock, nsim = 400, iprint = TRUE, colCent = FALSE, rowCent = FALSE,
-    figdir = NULL, seed = NULL
+    figdir = NULL, seed = NULL, ReturnDetail = FALSE
   ){
 
   # Initialize parameters
@@ -283,10 +288,159 @@ DIVASmain <- function(
     }
   }
 
+  # ---- Compute inverse loadings and recalculated scores ----
+  if (iprint) {
+    cat("Computing inverse loadings and recalculated scores...\\n")
+  }
+  
+  # Initialize output structures
+  outstruct$Loadings <- vector("list", nb)
+  outstruct$Scores <- vector("list", nb)
+  outstruct$LoadingsNames <- vector("list", nb)
+  outstruct$names_vec <- vector("list", nb)
+  names(outstruct$Loadings) <- dataname
+  names(outstruct$Scores) <- dataname
+  names(outstruct$LoadingsNames) <- dataname
+  names(outstruct$names_vec) <- dataname
+  
+  # Helper function: computLoadings (exactly from CaseCOVID.Rmd)
+  computLoadings <- function(divasRes, omic_block = 1) {
+    
+    # Step 1: Concatenate all loadings for the specified omic block
+    all_loadings_list <- divasRes$matLoadings[[omic_block]]
+    # Remove any NULL components
+    valid_loadings <- all_loadings_list[!sapply(all_loadings_list, is.null)]
+    newNames <- names(valid_loadings)
+    newNames <- divasRes$keymapname[newNames]
+    names(valid_loadings) <- newNames
+    
+    if (length(valid_loadings) == 0) {
+      stop("No valid loadings found for this omic block")
+    }
+    
+    # Step 2: Horizontally concatenate all loadings: [L_i,k]_{i|k∈i}
+    L_concatenated <- do.call(cbind, valid_loadings)
+    
+    # Step 3: Compute generalized inverse of concatenated loadings
+    L_concat_pinv_T <- t(MASS::ginv(L_concatenated))
+    L_concat_pinv_T <- scale(L_concat_pinv_T, center = F, scale = colSums(L_concat_pinv_T^2)^(1/2))
+    
+    
+    # Step 4: Add rownames and column names
+    rownames(L_concat_pinv_T) <- rownames(L_concatenated)
+    
+    # Create column names based on data block combinations and component indices
+    col_names <- c()
+    for (i in 1:length(valid_loadings)) {
+      loading_name <- names(valid_loadings)[i]  # This is the keymapname (e.g., "RNA+Protein")
+      n_components <- ncol(as.matrix(valid_loadings[[i]]))
+      
+      # Generate column names like "RNA+Protein-1", "RNA+Protein-2", etc.
+      component_names <- paste0(loading_name, "-", 1:n_components)
+      col_names <- c(col_names, component_names)
+    }
+    # Set column names
+    colnames(L_concat_pinv_T) <- col_names
+    
+    return(L_concat_pinv_T)
+  }
+
+  # Process each data block using computLoadings
+  for (block_idx in 1:nb) {
+    if (iprint) {
+      cat("Processing block", block_idx, ":", dataname[block_idx], "...\\n")
+    }
+    
+    # Check if MASS is available
+    if (!requireNamespace("MASS", quietly = TRUE)) {
+      warning("MASS package is required for computing generalized inverse. Skipping inverse loadings computation.")
+      outstruct$Loadings[[block_idx]] <- NULL
+      outstruct$Scores[[block_idx]] <- NULL
+      next
+    }
+    
+    # Use computLoadings function
+    tryCatch({
+      newLoadings <- computLoadings(outstruct, omic_block = block_idx)
+      
+      # Store the inverse loadings as a nested list per block:
+      # - First level: block name (already indexed by block_idx)
+      # - Second level: component name (one column per rank), value is a one-column matrix
+      col_names <- colnames(newLoadings)
+      loading_list <- vector("list", length(col_names))
+      names(loading_list) <- col_names
+      for (jj in seq_along(col_names)) {
+        loading_list[[jj]] <- as.matrix(newLoadings[, jj, drop = FALSE])
+        colnames(loading_list[[jj]]) <- col_names[jj]
+      }
+      outstruct$Loadings[[block_idx]] <- loading_list
+      outstruct$LoadingsNames[[block_idx]] <- names(loading_list)
+      outstruct$names_vec[[block_idx]] <- names(loading_list)
+      
+      # Compute recalculated scores following CaseCOVID.Rmd:
+      # Shat <- crossprod(XtrainCent, newLoadings)
+      X_block <- as.matrix(datablock[[block_idx]])
+      if (!is.null(sample_ids)) {
+        X_block <- X_block[, sample_ids, drop = FALSE]
+      }
+      # Row centering (与CaseCOVID.Rmd一致: XtrainCent <- Xtrain - rowMeans(Xtrain))
+      X_block_cent <- X_block - rowMeans(X_block)
+      S_recalc <- crossprod(X_block_cent, newLoadings)
+      # Column normalisation to unit norm (与CaseCOVID.Rmd一致)
+      S_recalc <- t(t(S_recalc)/colSums(S_recalc^2)**0.5)
+      
+      # Add sample names as rownames
+      if (!is.null(sample_ids)) {
+        rownames(S_recalc) <- sample_ids
+      }
+      colnames(S_recalc) <- col_names
+      
+      # Store the recalculated scores
+      outstruct$Scores[[block_idx]] <- S_recalc
+      
+      if (iprint) {
+        cat("  Inverse loadings computed with dimensions:", dim(newLoadings), "\\n")
+        cat("  Recalculated scores computed with dimensions:", dim(S_recalc), "\\n")
+      }
+    }, error = function(e) {
+      if (iprint) {
+        cat("  Error processing block", block_idx, ":", e$message, "\\n")
+      }
+      outstruct$Loadings[[block_idx]] <- NULL
+      outstruct$Scores[[block_idx]] <- NULL
+    })
+  }
+
   if (iprint) {
     cat("DIVAS is complete.\\n")
   }
 
-  return(outstruct)
+  # Reorder/compact return according to ReturnDetail
+  if (!ReturnDetail) {
+    # Compact: keep only the most relevant elements in preferred order
+    compact <- list(
+      Scores = outstruct$Scores,
+      Loadings = outstruct$Loadings,
+      jointBasisMap = outstruct$jointBasisMap,
+      matLoadings = outstruct$matLoadings,
+      keymapname = outstruct$keymapname
+    )
+    return(compact)
+  } else {
+    # Full details but reorder to prioritize the key elements first
+    prioritized <- list(
+      Scores = outstruct$Scores,
+      Loadings = outstruct$Loadings,
+      jointBasisMap = outstruct$jointBasisMap,
+      matLoadings = outstruct$matLoadings,
+      keymapname = outstruct$keymapname
+    )
+    # Append the rest of the fields preserving originals
+    remaining_names <- setdiff(names(outstruct), names(prioritized))
+    for (nm in remaining_names) {
+      prioritized[[nm]] <- outstruct[[nm]]
+    }
+    return(prioritized)
+  }
 }
 
