@@ -18,11 +18,10 @@
 #'     \item{matBlocks}{List of scores representing shared and partially shared joint structures.}
 #'     \item{matLoadings}{List of loadings linking features in each data block with scores.}
 #'     \item{keyIdxMap}{Mapping between indices of the previous lists and data blocks.}
-#'     \item{sampleScoreMatrix}{A comprehensive matrix with samples as rows and all component scores as columns. Column names follow the pattern "X-Way-Y" for joint structures (e.g., "6-Way-1", "5-Way-2") and "BlockName-Individual-Y" for individual structures.}
-#'     \item{Loadings}{List of inverse loadings (generalized inverse of matLoadings) for each data block, providing better biological interpretability.}
-#'     \item{Scores}{List of recalculated scores computed as X^T * Loadings for each data block, offering an alternative to the original scores.}
+#'     \item{Scores}{A comprehensive matrix with samples as rows and all component scores as columns. Column names follow the pattern "X-Way-Y" for joint structures (e.g., "6-Way-1", "5-Way-2") and "BlockName-Individual-Y" for individual structures. (Renamed from sampleScoreMatrix for clarity)}
+#'     \item{scoresList}{List of recalculated scores computed as X^T * Loadings for each data block, offering an alternative to the original scores. (Renamed from Scores for clarity)}
+#'     \item{Loadings}{List of inverse loadings matrices for each data block. Each element is a features × components matrix, where rows are features and columns are components (e.g., "RNA+PRO+MIC-1", "RNA-1", etc.). Provides better biological interpretability than original matLoadings.}
 #'     \item{LoadingsNames}{A list of character vectors per data block, each listing available component names in Loadings[[block]].}
-#'     \item{names_vec}{Alias of LoadingsNames, per data block character vectors of component names (for convenience).}
 #'   }
 #'   See Details for more explanations.
 #'
@@ -296,11 +295,11 @@ DIVASmain <- function(
   
   # Initialize output structures
   outstruct$Loadings <- vector("list", nb)
-  outstruct$Scores <- vector("list", nb)
+  outstruct$scoresList <- vector("list", nb)  # 直接命名为最终需要的名称
   outstruct$LoadingsNames <- vector("list", nb)
   outstruct$names_vec <- vector("list", nb)
   names(outstruct$Loadings) <- dataname
-  names(outstruct$Scores) <- dataname
+  names(outstruct$scoresList) <- dataname
   names(outstruct$LoadingsNames) <- dataname
   names(outstruct$names_vec) <- dataname
   
@@ -358,19 +357,12 @@ DIVASmain <- function(
     tryCatch({
       newLoadings <- computLoadings(outstruct, omic_block = block_idx)
       
-      # Store the inverse loadings as a nested list per block:
-      # - First level: block name (already indexed by block_idx)
-      # - Second level: component name (one column per rank), value is a one-column matrix
-      col_names <- colnames(newLoadings)
-      loading_list <- vector("list", length(col_names))
-      names(loading_list) <- col_names
-      for (jj in seq_along(col_names)) {
-        loading_list[[jj]] <- as.matrix(newLoadings[, jj, drop = FALSE])
-        colnames(loading_list[[jj]]) <- col_names[jj]
-      }
-      outstruct$Loadings[[block_idx]] <- loading_list
-      outstruct$LoadingsNames[[block_idx]] <- names(loading_list)
-      outstruct$names_vec[[block_idx]] <- names(loading_list)
+      # Store the inverse loadings as a matrix per block:
+      # - Each block: features × components matrix
+      # - More intuitive structure than nested lists
+      outstruct$Loadings[[block_idx]] <- newLoadings
+      outstruct$LoadingsNames[[block_idx]] <- colnames(newLoadings)
+      outstruct$names_vec[[block_idx]] <- colnames(newLoadings)
       
       # Compute recalculated scores following CaseCOVID.Rmd:
       # Shat <- crossprod(XtrainCent, newLoadings)
@@ -384,14 +376,14 @@ DIVASmain <- function(
       # Column normalisation to unit norm (与CaseCOVID.Rmd一致)
       S_recalc <- t(t(S_recalc)/colSums(S_recalc^2)**0.5)
       
-      # Add sample names as rownames
+      # Add sample names as rownames and column names
       if (!is.null(sample_ids)) {
         rownames(S_recalc) <- sample_ids
       }
-      colnames(S_recalc) <- col_names
+      colnames(S_recalc) <- colnames(newLoadings)  # 使用newLoadings的列名
       
       # Store the recalculated scores
-      outstruct$Scores[[block_idx]] <- S_recalc
+      outstruct$scoresList[[block_idx]] <- S_recalc
       
       if (iprint) {
         cat("  Inverse loadings computed with dimensions:", dim(newLoadings), "\\n")
@@ -402,7 +394,7 @@ DIVASmain <- function(
         cat("  Error processing block", block_idx, ":", e$message, "\\n")
       }
       outstruct$Loadings[[block_idx]] <- NULL
-      outstruct$Scores[[block_idx]] <- NULL
+      outstruct$scoresList[[block_idx]] <- NULL
     })
   }
 
@@ -410,28 +402,27 @@ DIVASmain <- function(
     cat("DIVAS is complete.\\n")
   }
 
-  # Reorder/compact return according to ReturnDetail
+  
   if (!ReturnDetail) {
-    # Compact: keep only the most relevant elements in preferred order
+    # Compact result with updated naming and order per user requirements
     compact <- list(
-      Scores = outstruct$Scores,
-      Loadings = outstruct$Loadings,
-      jointBasisMap = outstruct$jointBasisMap,
-      matLoadings = outstruct$matLoadings,
-      keymapname = outstruct$keymapname
+      Scores = outstruct$sampleScoreMatrix,  # first: rename sampleScoreMatrix to Scores  
+      scoresList = outstruct$scoresList,     # second: directly use scoresList (no renaming needed)
+      Loadings = outstruct$Loadings,         # third: keep Loadings as matrix format
+      LoadingsNames = outstruct$LoadingsNames # fourth: keep LoadingsNames (remove names_vec)
     )
     return(compact)
   } else {
-    # Full details but reorder to prioritize the key elements first
+    # Full details with updated naming and priority order
     prioritized <- list(
-      Scores = outstruct$Scores,
-      Loadings = outstruct$Loadings,
-      jointBasisMap = outstruct$jointBasisMap,
-      matLoadings = outstruct$matLoadings,
-      keymapname = outstruct$keymapname
+      Scores = outstruct$sampleScoreMatrix,  # first: rename sampleScoreMatrix to Scores
+      scoresList = outstruct$scoresList,     # second: directly use scoresList (no renaming needed)
+      Loadings = outstruct$Loadings,         # third: keep Loadings as matrix format
+      LoadingsNames = outstruct$LoadingsNames # fourth: keep LoadingsNames
     )
-    # Append the rest of the fields preserving originals
-    remaining_names <- setdiff(names(outstruct), names(prioritized))
+    # Append the rest of the fields preserving originals (excluding renamed and duplicate ones)
+    # 排除重复数据：jointBasisMap与Scores内容重复，只是组织方式不同
+    remaining_names <- setdiff(names(outstruct), c("sampleScoreMatrix", "scoresList", "Loadings", "LoadingsNames", "names_vec", "jointBasisMap"))
     for (nm in remaining_names) {
       prioritized[[nm]] <- outstruct[[nm]]
     }
