@@ -97,7 +97,7 @@ See the documentation website for more detailed examples and tutorials.
 
 This project serves as a comprehensive, real-world application of the DIVAS package on a complex multi-omics dataset from a COVID-19 patient cohort. It demonstrates the full data processing and analysis workflow, from raw data cleaning to final DIVAS results, showcasing the practical utility of the package.
 
-**➡️ [View the full analysis on GitHub](https://github.com/ByronSyun/DIVAS_COVID19_Analysis)**
+**➡️ [View the full analysis on GitHub](https://github.com/ByronSyun/DIVAS_COVID19_CaseStudy)**
 
 ## Developers
 
