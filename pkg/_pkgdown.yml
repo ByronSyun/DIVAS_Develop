@@ -73,10 +73,11 @@ reference:
       - randDirAngleMJ
   - title: "Utility Functions"
     desc: >
-      Helper functions used within the DIVAS workflow.
+      Helper functions for DIVAS workflow and result interpretation.
     contents:
       - MatCenterJP
       - acosd
+      - getTopFeatures
 #  - title: "Main Functions" # This section is now replaced
 #    desc: >
 #      Core functions for DIVAS analysis
