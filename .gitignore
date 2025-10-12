@@ -20,6 +20,8 @@
 # R package build files
 *.tar.gz
 *.tgz
+*.Rcheck/
+.Rcheck/
 /revdep/
 
 # Some common temporary files

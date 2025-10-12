@@ -421,7 +421,6 @@ DIVASmain <- function(
       LoadingsNames = outstruct$LoadingsNames # fourth: keep LoadingsNames
     )
     # Append the rest of the fields preserving originals (excluding renamed and duplicate ones)
-    # 排除重复数据：jointBasisMap与Scores内容重复，只是组织方式不同
     remaining_names <- setdiff(names(outstruct), c("sampleScoreMatrix", "scoresList", "Loadings", "LoadingsNames", "names_vec", "jointBasisMap"))
     for (nm in remaining_names) {
       prioritized[[nm]] <- outstruct[[nm]]
