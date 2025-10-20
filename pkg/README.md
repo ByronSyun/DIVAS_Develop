@@ -91,7 +91,7 @@ See the documentation website for more detailed examples and tutorials.
 |---------------------|----------------------------------------------------|------------------------------------------------------------------------------------------------------------|--------|------------------------|
 | toyDataThreeWay.mat | Synthetic 3-block data with known joint structures | [Toy Dataset Example](https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_Toy_Dataset_Example.html)       | .mat   | Prothero et al. (2024) |
 | gnp_imputed.qs      | GNP economic time series data                      | [GNP Dataset Example](https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_GNP_Dataset_Example.html) | .qs    | Stock & Watson (2016)  |
-| COVID-19 Multi-Omics | 6-block integration: scRNA-seq (4 cell types), proteomics, metabolomics from 114 COVID-19 patient samples | [Interactive Case Study](https://byronsyun.github.io/DIVAS_COVID19_CaseStudy/)                                                                                                | .rds    | Su et al. (2020)       |
+| COVID-19 Multi-Omics | 6-block integration: scRNA-seq (4 cell types), proteomics, metabolomics from 114 COVID-19 patient samples | [COVID Case Study](https://byronsyun.github.io/DIVAS_COVID19_CaseStudy/)                                                                                                | .rds    | Su et al. (2020)       |
 
 ## Case Study: COVID-19 Multi-Omics Analysis
 
@@ -101,16 +101,8 @@ This project serves as a comprehensive, real-world application of the DIVAS pack
 
 ## Developers
 
-### Core Team
-
 * **[Jiadong Mao](https://github.com/jiadongm)** - *Lead Developer, Maintainer*
 * **[Yinuo Sun](https://github.com/ByronSyun)** - *Package Developer, Maintainer*
-
-### Contributors
-
-* **Kim-Anh Lê Cao** - *Author*
-* **Geraldine Kong** - *Author*
-* **xx** - *Author*
 
 ## References
 
