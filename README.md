@@ -6,9 +6,10 @@
 
 ## Introduction
 
-DIVAS (Data Integration via Analysis of Subspaces) is an R package for multi-modal data integration. Based on the DIVAS methodology proposed by Prothero et al. (2024), it provides tools for signal extraction, noise estimation, and joint structure identification from high-dimensional datasets, useful for multi-omics and other complex data types.
+We provide R implementation of DIVAS (Prothero et al., 2024),a statistical method for multi-modal data integration. 
+Via statistical analysis of subspaces, DIVAS identifies joint, partially shared and individual variations of multiple data blocks in a completely
+data driven way. In addition to providing an R implementation based on the original MATLAB implementation, we also designed visualisation tools for exploring DIVAS results.
 
-**Documentation website**: [https://github.com/ByronSyun/DIVAS_Develop/tree/main](https://github.com/ByronSyun/DIVAS_Develop/tree/main)
 
 ## Repository Structure
 
@@ -27,7 +28,8 @@ DIVAS (Data Integration via Analysis of Subspaces) is an R package for multi-mod
 
 ### Dependencies
 
-The DIVAS package requires a modern version of the `CVXR` package to ensure compatibility with underlying solvers like SCS. We strongly recommend installing the latest stable version from CRAN.
+The DIVAS package requires the `CVXR` package to be able to use optimisation solvers like SCS. 
+We strongly recommend installing the latest stable version from CRAN.
 
 ```R
 # Install devtools (if not already installed)
@@ -50,42 +52,9 @@ devtools::install_github("ByronSyun/DIVAS_Develop/pkg", ref = "main")
 # devtools::install("path/to/DIVAS-main/pkg")
 ```
 
-## Usage Examples
+## Real data examples
 
-The DIVAS package supports analysis of various data formats. Here are two examples using different data formats:
-
-### Example 1: Using MATLAB data
-
-```R
-# Load necessary libraries
-library(devtools)
-library(R.matlab)
-library(DIVAS)
-
-# Construct the path to the data file within the package
-data_path <- system.file("extdata", "toyDataThreeWay.mat", package = "DIVAS")
-# Read MATLAB data
-data <- readMat(data_path)
-
-# Prepare data blocks
-datablock <- list(
-  X1 = data$datablock[1,1][[1]][[1]],
-  X2 = data$datablock[1,2][[1]][[1]],
-  X3 = data$datablock[1,3][[1]][[1]]
-)
-
-# Run DIVAS main function
-result <- DIVASmain(datablock)
-
-# Visualize results
-dataname <- paste0("DataBlock_", 1:length(datablock))
-plots <- DJIVEAngleDiagnosticJP(datablock, dataname, result, 566, "Demo")
-print(plots)
-```
-
-See the documentation website for more detailed examples and tutorials.
-
-## Available Datasets
+We provide the following examples to illustrate the use of DIVAS in different scenarios.
 
 | Dataset             | Brief Description                                  | Vignette Link                                                                                              | Format | Primary Reference      |
 |---------------------|----------------------------------------------------|------------------------------------------------------------------------------------------------------------|--------|------------------------|
@@ -93,11 +62,7 @@ See the documentation website for more detailed examples and tutorials.
 | gnp_imputed.qs      | GNP economic time series data                      | [GNP Dataset Example](https://byronsyun.github.io/DIVAS_Develop/articles/DIVAS_GNP_Dataset_Example.html) | .qs    | Stock & Watson (2016)  |
 | COVID-19 Multi-Omics | 6-block integration: scRNA-seq (4 cell types), proteomics, metabolomics from 114 COVID-19 patient samples | [COVID Case Study](https://byronsyun.github.io/DIVAS_COVID19_CaseStudy/)                                                                                                | .rds    | Su et al. (2020)       |
 
-## Case Study: COVID-19 Multi-Omics Analysis
 
-This project serves as a comprehensive, real-world application of the DIVAS package on a complex multi-omics dataset from a COVID-19 patient cohort. It demonstrates the full data processing and analysis workflow, from raw data cleaning to final DIVAS results, showcasing the practical utility of the package.
-
-**➡️ [View the full analysis on GitHub](https://github.com/ByronSyun/DIVAS_COVID19_CaseStudy)**
 
 ## Developers
 
@@ -106,9 +71,8 @@ This project serves as a comprehensive, real-world application of the DIVAS pack
 
 ## References
 
-Prothero, J., et al. (2024). Data integration via analysis of subspaces (DIVAS).
+Prothero, J., et al. (2024). Data integration via analysis of subspaces (DIVAS). TEST.
 
-Su, Y., Chen, D., Yuan, D., et al. (2020). Multi-Omics Resolves a Sharp Disease-State Shift between Mild and Moderate COVID-19. Cell, 183(6), 1479-1495. https://doi.org/10.1016/j.cell.2020.10.037
 
 ## Contributing
 
