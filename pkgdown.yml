@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   contributing: contributing.html
@@ -7,7 +7,7 @@ articles:
   DIVAS_GNP_Dataset_Example: DIVAS_GNP_Dataset_Example.html
   DIVAS_Toy_Dataset_Example: DIVAS_Toy_Dataset_Example.html
   DIVAS_User_Guide: DIVAS_User_Guide.html
-last_built: 2025-10-27T00:56Z
+last_built: 2025-11-25T03:35Z
 urls:
   reference: https://byronsyun.github.io/DIVAS_Develop/reference
   article: https://byronsyun.github.io/DIVAS_Develop/articles
