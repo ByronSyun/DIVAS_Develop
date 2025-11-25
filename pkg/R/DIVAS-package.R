@@ -2,6 +2,6 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import CVXR
+#' @importFrom CVXR Variable Minimize sum_squares quad_form solve psolve t
 ## usethis namespace: end
 NULL
