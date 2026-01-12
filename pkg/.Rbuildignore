@@ -7,3 +7,6 @@
 ^DIVAS_logo\.png$
 ^doc$
 ^Meta$
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
