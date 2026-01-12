@@ -12,14 +12,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/ByronSyun/DIVAS_Develop/blob/main/DESCRIPTION)
 
-Mao J, Sun Y (2025). *DIVAS: Data Integration via Analysis of
+Mao J, Sun Y (2026). *DIVAS: Data Integration via Analysis of
 Subspaces*. R package version 0.1.1,
 <https://github.com/ByronSyun/DIVAS_Develop>.
 
     @Manual{,
       title = {DIVAS: Data Integration via Analysis of Subspaces},
       author = {Jiadong Mao and Yinuo Sun},
-      year = {2025},
+      year = {2026},
       note = {R package version 0.1.1},
       url = {https://github.com/ByronSyun/DIVAS_Develop},
     }
