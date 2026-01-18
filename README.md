@@ -11,19 +11,6 @@ Via statistical analysis of subspaces, DIVAS identifies joint, partially shared 
 data driven way. In addition to providing an R implementation based on the original MATLAB implementation, we also designed visualisation tools for exploring DIVAS results.
 
 
-## Repository Structure
-
-```
-.
-├── pkg/                 # R package source code
-├── docs/                # Generated documentation website
-├── man/                 # Package manual and figures
-├── papers/              # Related publications
-└── sourceCode/          # Development code and examples
-    ├── examples/        # Example R scripts
-    └── matlab/          # Original MATLAB implementation
-```
-
 ## Installation
 
 ### Dependencies
@@ -72,11 +59,6 @@ We provide the following examples to illustrate the use of DIVAS in different sc
 ## References
 
 Prothero, J., et al. (2024). Data integration via analysis of subspaces (DIVAS). TEST.
-
-
-## Contributing
-
-We welcome contributions to the DIVAS package. Please see our [contributing guidelines](https://byronsyun.github.io/DIVAS_Develop/articles/contributing.html) for more information.
 
 ## License
 
