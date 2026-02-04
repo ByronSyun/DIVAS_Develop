@@ -1,5 +1,9 @@
 # DIVAS: Data Integration via Analysis of Subspaces
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/ByronSyun/DIVAS_Develop/workflows/R-CMD-check/badge.svg)](https://github.com/ByronSyun/DIVAS_Develop/actions)
+<!-- badges: end -->
+
 <p align="center">
 <img src="man/figures/DIVAS_logo.png" width="200" alt="DIVAS Logo">
 </p>
