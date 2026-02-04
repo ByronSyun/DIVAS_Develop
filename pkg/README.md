@@ -8,20 +8,7 @@
 
 DIVAS (Data Integration via Analysis of Subspaces) is an R package for multi-modal data integration. Based on the DIVAS methodology proposed by Prothero et al. (2024), it provides tools for signal extraction, noise estimation, and joint structure identification from high-dimensional datasets, useful for multi-omics and other complex data types.
 
-**Documentation website**: [https://github.com/ByronSyun/DIVAS_Develop/tree/main](https://github.com/ByronSyun/DIVAS_Develop/tree/main)
-
-## Repository Structure
-
-```
-.
-├── pkg/                 # R package source code
-├── docs/                # Generated documentation website
-├── man/                 # Package manual and figures
-├── papers/              # Related publications
-└── sourceCode/          # Development code and examples
-    ├── examples/        # Example R scripts
-    └── matlab/          # Original MATLAB implementation
-```
+**Documentation website**: [https://byronsyun.github.io/DIVAS_Develop/](https://byronsyun.github.io/DIVAS_Develop/)
 
 ## Installation
 
@@ -110,11 +97,7 @@ Prothero, J., et al. (2024). Data integration via analysis of subspaces (DIVAS).
 
 Su, Y., Chen, D., Yuan, D., et al. (2020). Multi-Omics Resolves a Sharp Disease-State Shift between Mild and Moderate COVID-19. Cell, 183(6), 1479-1495. https://doi.org/10.1016/j.cell.2020.10.037
 
-## Contributing
-
-We welcome contributions to the DIVAS package. Please see our [contributing guidelines](https://byronsyun.github.io/DIVAS_Develop/articles/contributing.html) for more information.
-
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3) - see the LICENSE file for details.
 
